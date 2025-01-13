@@ -6,7 +6,6 @@
 
 using namespace std;
 
-// 몬스터 아이디
 enum PawnId {
     SLIME = 1,
     TROLL = 2,
