@@ -13,24 +13,180 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="매니저">
+      <UniqueIdentifier>{474505c5-48c7-4ead-9015-e816a63084e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="엔티티">
+      <UniqueIdentifier>{0f596ed8-72c2-4c6e-bc0e-94f4252da764}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="유저인터페이스">
+      <UniqueIdentifier>{4118548e-fec4-412e-818c-85bc061a136b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="유틸리티">
+      <UniqueIdentifier>{c035d5e0-9a05-47b5-b474-3001ca10d1e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="유저인터페이스\박스">
+      <UniqueIdentifier>{8b068309-a0e1-48aa-8012-623d3f8d9363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="맵">
+      <UniqueIdentifier>{7ebe6bdf-e60a-4350-bf77-f326adeb6ff1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="TradeManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="FactoryManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="Singleton.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Human.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Orc.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Troll.cpp">
+      <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>유저인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="Cursor.cpp">
+      <Filter>유저인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>유저인터페이스</Filter>
+    </ClCompile>
+    <ClCompile Include="Util.cpp">
+      <Filter>유틸리티</Filter>
+    </ClCompile>
+    <ClCompile Include="Validator.cpp">
+      <Filter>유틸리티</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClCompile>
+    <ClCompile Include="TextBox.cpp">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>맵</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.h">
+    <ClInclude Include="GameManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="TradeManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="FactoryManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>엔티티</Filter>
     </ClInclude>
     <ClInclude Include="Item.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="struct.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Character.h">
+    <ClInclude Include="Goblin.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Human.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Orc.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Troll.h">
+      <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="Cursor.h">
+      <Filter>유저인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>유저인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>유저인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="UIStruct.h">
+      <Filter>유저인터페이스</Filter>
+    </ClInclude>
+    <ClInclude Include="Util.h">
+      <Filter>유틸리티</Filter>
+    </ClInclude>
+    <ClInclude Include="Validator.h">
+      <Filter>유틸리티</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClInclude>
+    <ClInclude Include="TextBox.h">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>맵</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
