@@ -38,7 +38,6 @@ private:
 	Character() = default;
 	~Character() = default;
 
-	friend class CharacterManager;	
 	friend class SingleTon<Character>;
 public:
 	void Init();
@@ -57,6 +56,7 @@ public:
 	double GetAccuracy() const;
 	double GetSkillEnhancement() const;
 	double GetCriticalChance() const;
+	CharacterStat GetCharacterStat() const;
 
 	void SetName(const std::string& _name);
 	void SetLevel(int _level);
@@ -72,4 +72,5 @@ public:
 	void SetAccuracy(double _accuracy);
 	void SetSkillEnhancement(double _skillEnhancement);
 	void SetCriticalChance(double _criticalChance);
+	void SetCharacterStat(CharacterStat _stat);
 };

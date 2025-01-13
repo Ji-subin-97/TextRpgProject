@@ -14,6 +14,11 @@ void Character::Init()
 	experience = 0;
 	experienceCapacity = 50;
 	gold = 0;
+
+	damageReduction = 0.0;
+	accuracy = 50.0;
+	skillEnhancement = 0.0;
+	criticalChance = 0.0;
 }
 
 // Getter
@@ -87,6 +92,11 @@ double Character::GetCriticalChance() const
 	return criticalChance;
 }
 
+CharacterStat Character::GetCharacterStat() const
+{
+	return stat;
+}
+
 // Setter
 void Character::SetName(const string& _name)
 {
@@ -156,4 +166,9 @@ void Character::SetSkillEnhancement(double _skillEnhancement)
 void Character::SetCriticalChance(double _criticalChance)
 {
 	criticalChance = _criticalChance;
+}
+
+void Character::SetCharacterStat(CharacterStat _stat)
+{
+	stat = _stat;
 }
