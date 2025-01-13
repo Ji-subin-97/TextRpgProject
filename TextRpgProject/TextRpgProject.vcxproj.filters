@@ -22,6 +22,12 @@
     <Filter Include="헤더 파일\ETC">
       <UniqueIdentifier>{6a6c5f13-56c6-47bd-84a8-fd077fa6eea3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Skill">
+      <UniqueIdentifier>{e8f5ef65-ea98-479a-9119-b93600ddffe5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Skill">
+      <UniqueIdentifier>{e9b6c605-dbe7-48e3-8c5e-af502a63ed00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -32,6 +38,27 @@
     </ClCompile>
     <ClCompile Include="CharacterManager.cpp">
       <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="IceStorm.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Mateor.cpp">
+      <Filter>소스 파일\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Sparata.cpp">
+      <Filter>소스 파일\Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +82,15 @@
     </ClInclude>
     <ClInclude Include="Random.h">
       <Filter>헤더 파일\ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterObserver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>헤더 파일\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>헤더 파일\Skill</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

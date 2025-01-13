@@ -308,7 +308,7 @@ void CharacterManager::SetCharacterStatAfterLevelUp()
 	system("cls");
 	cout << "축하드립니다 캐릭터가 " << character->GetLevel() << " LV 으로 레벨업하였습니다!" << endl;
 	cout << "잠시후 스탯관리창으로 넘어갑니다." << endl;
-	Sleep(3000);
+	Sleep(3000); 
 
 	SetCharacterStat();
 	// 캐릭터 스텟 레벨업 후로 재설정 후 회복 및 경험치 수정
@@ -334,7 +334,7 @@ void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사�
 	}
 	else
 	{
-		// 사망?
+		// 사망? 
 	}
 
 	// 만약 경험치가 음수이면 0으로 초기화
@@ -343,4 +343,17 @@ void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사�
 		character->SetExperience(0);
 	}
 
+}
+
+// ============================= 스킬 관련 =======================================
+void CharacterManager::CharacterGetSkill()
+{
+	Character* character = Character::GetInstance();
+	SkillManager* skillManager = SkillManager::GetInstance();
+	unique_ptr<Skill> skill = skillManager->TakeSkillRandom();
+
+	if (skill != nullptr)
+	{
+		character->TakeSkill(move(skill));
+	}
 }

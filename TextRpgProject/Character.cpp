@@ -20,7 +20,7 @@ void Character::Init()
 
 	damageReduction = 0.0;
 	accuracy = 50.0;
-	skillEnhancement = 0. 0;
+	skillEnhancement = 0.0;
 	criticalChance = 0.0;
 
 	statStock = 0;
@@ -258,15 +258,78 @@ int Character::CharacterAttack()
 	return attack;
 }
 
-void Character::ChracterUseItem()
-{
-	// 캐릭터 아이템사용
-}
-
 void Character::TakeDamage(int damage)
 {
 	// 데미지 계산: HP - (피해 감소율 * 데미지)
 	damage = static_cast<int>(damage * (damageReduction / 100));
 	cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
 	hp -= damage;
+}
+
+// 스킬관련 ===========================================================================================
+
+void Character::PrintSkillList()
+{
+	cout << "[ " << name << " ] 님이 현재 보유하고 있는 스킬목록 입니다." << endl;
+	int index = 1;
+	for (const auto& item : skillInventory)
+	{
+		cout << "[ " << index << " ] " << item->GetSkillName() << " / 데미지: " << item->GetDamage() << " / 소비마나: " << item->GetMp() << endl;
+		index++;
+	}
+	Sleep(1000);
+}
+
+void Character::TakeSkill(unique_ptr<Skill> skill)
+{
+	cout << "[ " << name << " ] 님이 " << skill->GetSkillName() << "스킬을 얻었습니다!" << endl;
+
+	if (skillInventory.size() >= 3) {
+		cout << "더이상 스킬을 얻을 수 없습니다." << endl;
+		Sleep(1000);
+	}
+
+	skillInventory.push_back(move(skill));
+
+	Sleep(1000);
+}
+
+int Character::UseSkill()
+{
+	int choice = 0;
+	int damage = 0;
+
+	while (true)
+	{
+		PrintSkillList();
+		cout << "사용하실 스킬을 선택해주세요." << endl;
+		cout << "선택: ";
+		cin >> choice;
+
+		if (cin.fail())
+		{
+			cout << "숫자만 입력가능합니다." << endl;
+			cin.clear();
+			cin.ignore();
+
+			continue;
+		}
+
+		const unique_ptr<Skill>& skill = skillInventory[choice - 1];
+
+		if (skill != nullptr)
+		{
+			damage = skill->GetDamage() + static_cast<int>(skill->GetDamage() * skillEnhancement / 100);
+			cout << "[ " << name << " ] 님의 " << skill->GetSkillName() << "!" << endl;
+			mp -= skill->GetMp();
+
+			break;
+		}
+		else
+		{
+			cout << "스킬이 존재하지 않습니다." << endl;
+		}
+	}
+
+	return damage;
 }

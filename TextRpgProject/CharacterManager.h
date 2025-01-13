@@ -1,6 +1,7 @@
 #pragma once
 #include "SingleTon.h"
 #include "Character.h"
+#include "SkillManager.h"
 
 class CharacterManager : public SingleTon<CharacterManager>
 {
@@ -22,6 +23,9 @@ public:
 	void SetCharacterStat();							// 캐릭터의 스텟관리창
 	void SetCharacterStatAfterLevelUp();				// 캐릭터 레벨업 후 스텟관리(레벨업 이벤트 발생 시)
 	void SetCharacterExp(int caseNum);					// 캐릭터 레벨수치 관리
+
+	// 캐릭터 스킬관련
+	void CharacterGetSkill();							// 캐릭터 스킬획득
 
 	// 공격, 스킬, 이동, 장착, 획득등 행동은 캐릭터가 직접!
 };

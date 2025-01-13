@@ -2,8 +2,11 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <map>
 #include "SingleTon.h"
 #include "CharacterObserver.h"
+#include "SkillManager.h"
+
 
 // 캐릭터 스텟
 struct CharacterStat
@@ -41,6 +44,8 @@ private:
 	CharacterStat stat;					// 스텟
 	int statStock;						// 올릴수있는 스텟양
 	int statStockAll;					// 전체 스텟양
+
+	std::vector<std::unique_ptr<Skill>> skillInventory;		// 스킬 인벤토리
 
 	Character() = default;
 	~Character() = default;
@@ -94,7 +99,15 @@ public:
 	void CharacterLevelUp();					// 레벨업
 
 	int CharacterAttack();						// 공격
-	void ChracterUseItem();						// 아이템사용
-
+	
 	void TakeDamage(int damage);				// 데미지입음
+
+	// 아이템관련
+	// void TakeItem(Item item);				// 아이템 얻기
+	// void UseItem();							// 아이템 사용
+
+	// 스킬관련
+	void PrintSkillList();						// 캐릭터가 현재가지고있는 스킬 목록
+	void TakeSkill(std::unique_ptr<Skill> skill);		// 스킬얻기
+	int UseSkill();								// 스킬사용
 };
