@@ -186,10 +186,6 @@ void CharacterManager::SetCharacterStat()
 	{
 		
 		CharacterStat stat = character->GetCharacterStat();
-
-		// test
-		character->SetStatStock(5);
-
 		int statStock = character->GetStatStock();
 
 		while (!isComplete)
@@ -301,6 +297,50 @@ void CharacterManager::SetCharacterStat()
 			}
 
 		}
+	}
+
+}
+
+void CharacterManager::SetCharacterStatAfterLevelUp()
+{
+	Character* character = Character::GetInstance();
+
+	system("cls");
+	cout << "축하드립니다 캐릭터가 " << character->GetLevel() << " LV 으로 레벨업하였습니다!" << endl;
+	cout << "잠시후 스탯관리창으로 넘어갑니다." << endl;
+	Sleep(3000);
+
+	SetCharacterStat();
+	// 캐릭터 스텟 레벨업 후로 재설정 후 회복 및 경험치 수정
+	character->SetHp(character->GetMaxHp());
+	character->SetMp(character->GetMaxMp());
+
+	// 레벨업
+	SetCharacterExp(1);
+}
+
+void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사망
+{
+	Character* character = Character::GetInstance();
+	int exp = character->GetExperience();
+	int expCapacity = character->GetExperienceCapacity();
+
+	if (caseNum == 1)
+	{
+		// 현재 경험치 exp - expCapacity;
+		character->SetExperience(exp - expCapacity);
+		// 이 후에 경험치 총량을 기존 총량에 캐릭터레벨 * 10 을 더해줌
+		character->SetExperienceCapacity(expCapacity + character->GetLevel() * 10);
+	}
+	else
+	{
+		// 사망?
+	}
+
+	// 만약 경험치가 음수이면 0으로 초기화
+	if (character->GetExperience())
+	{
+		character->SetExperience(0);
 	}
 
 }

@@ -129,11 +129,13 @@
   <ItemGroup>
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterManager.cpp" />
+    <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterManager.h" />
+    <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />

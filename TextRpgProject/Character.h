@@ -1,7 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <memory>
 #include "SingleTon.h"
+#include "CharacterObserver.h"
 
 // 캐릭터 스텟
 struct CharacterStat
@@ -17,6 +19,9 @@ struct CharacterStat
 class Character : public SingleTon<Character>
 {
 private:
+	// 옵저버
+	std::vector<std::shared_ptr<CharacterObserver>> characterObservers;
+
 	std::string name;					// 캐릭터 이름
 	int level;							// 레벨
 	int hp;								// 체력
@@ -43,6 +48,11 @@ private:
 	friend class SingleTon<Character>;
 public:
 	void Init();
+
+	// 옵저버 등록
+	void AddCharacterObserver(std::shared_ptr<CharacterObserver> observer);
+	// 이벤트
+	void NotifyLevelUpEvent();
 
 	const std::string& GetName() const;
 	int GetLevel() const;
@@ -81,6 +91,8 @@ public:
 	void SetStatStockAll(int _statStockAll);
 
 	// 캐릭터 행동
+	void CharacterLevelUp();					// 레벨업
+
 	int CharacterAttack();						// 공격
 	void ChracterUseItem();						// 아이템사용
 

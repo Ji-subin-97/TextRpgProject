@@ -20,11 +20,29 @@ void Character::Init()
 
 	damageReduction = 0.0;
 	accuracy = 50.0;
-	skillEnhancement = 0.0;
+	skillEnhancement = 0. 0;
 	criticalChance = 0.0;
 
 	statStock = 0;
 	statStockAll = 0;
+
+	shared_ptr<CharacterManagerSystem> charManageSystem = make_shared<CharacterManagerSystem>();
+	AddCharacterObserver(charManageSystem);
+}
+
+// 옵저버 등록
+void Character::AddCharacterObserver(shared_ptr<CharacterObserver> observer)
+{
+	characterObservers.push_back(observer);
+}
+
+// 이벤트
+void Character::NotifyLevelUpEvent()
+{
+	for (shared_ptr<CharacterObserver> item : characterObservers)
+	{
+		item->LevelUpEvent();
+	}
 }
 
 // Getter
@@ -201,6 +219,15 @@ void Character::SetStatStockAll(int _statStockAll)
 
 // 캐릭터 행동
 
+void Character::CharacterLevelUp()
+{
+	// 레벨업 시 스텟5++, 레벨1++ 후 매니저에서 캐릭터능력치 조정
+	level++;
+	statStock += 5;
+
+	NotifyLevelUpEvent();
+}
+
 int Character::CharacterAttack()
 {
 	// 공격계산 : 명중 실패시 데미지 0, 명중시 (공격력 * 1.3(치명타확률 배수는 1.3배))
@@ -238,5 +265,8 @@ void Character::ChracterUseItem()
 
 void Character::TakeDamage(int damage)
 {
-
+	// 데미지 계산: HP - (피해 감소율 * 데미지)
+	damage = static_cast<int>(damage * (damageReduction / 100));
+	cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
+	hp -= damage;
 }
