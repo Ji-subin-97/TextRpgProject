@@ -74,8 +74,8 @@ void CharacterManager::CreateCharacter()
 
 		}
 
-		// 설정된 기본스텟에 따른 캐릭터 세부 스텟 결정
-		GenerateCharacter(*character);
+		// 처음 설정된 기본스텟에 따른 캐릭터 세부 스텟 결정
+		GenerateCharacter(*character, true);
 	}
 	else
 	{
@@ -98,7 +98,7 @@ void CharacterManager::CreateRandomStat(Character& character)
 	character.SetCharacterStat(stat);
 }
 
-void CharacterManager::GenerateCharacter(Character& character)
+void CharacterManager::GenerateCharacter(Character& character, bool isFirst)
 {
 	/* 계산공식
 	*  체력 및 최대체력: 기본100 + (HP * 캐릭터레벨 * 10)
@@ -119,38 +119,188 @@ void CharacterManager::GenerateCharacter(Character& character)
 			, character.GetCharacterStat().DEX
 			, character.GetCharacterStat().LUK }) + charLevel * 5);
 
-	character.SetHp(HP);
+	if (isFirst)
+	{
+		character.SetHp(HP);
+		character.SetMp(MP);
+	}
+
 	character.SetMaxHp(HP);
-	character.SetMp(MP);
 	character.SetMaxMp(MP);
 	character.SetAttack(ATTACK);
 	character.SetDamageReduction(character.GetCharacterStat().STR + 1);
 	character.SetAccuracy(character.GetCharacterStat().DEX + 50);
 	character.SetSkillEnhancement(character.GetCharacterStat().INT * 5);
 	character.SetCriticalChance(character.GetCharacterStat().LUK * 2);
+	character.SetStatStockAll(
+		character.GetCharacterStat().STR
+		+ character.GetCharacterStat().DEX
+		+ character.GetCharacterStat().INT
+		+ character.GetCharacterStat().LUK);
 }
 
-void CharacterManager::PrintCharacterInfo()
+void CharacterManager::PrintCharacterInfoAll()
 {
 	Character* character = Character::GetInstance();
+	system("cls");
 	if (character != nullptr)
 	{
-		system("cls");
 		cout << "\n====================================================================" << endl;
 		cout << "[ " << character->GetName() << " ] 님의 능력치입니다." << endl;
 		cout << " * 레벨: " << character->GetLevel() <<  " LV" << endl;
 		cout << " * HP: " << character->GetHp() << " / " << character->GetMaxHp() << endl;
 		cout << " * MP: " << character->GetMp() << " / " << character->GetMaxMp() << endl;
 		cout << " * 공격력: " << character->GetAttack() << endl;
-		cout << " * STR: " << character->GetCharacterStat().STR << endl;
-		cout << " * DEX: " << character->GetCharacterStat().DEX << endl;
-		cout << " * INT: " << character->GetCharacterStat().INT << endl;
-		cout << " * LUK: " << character->GetCharacterStat().LUK << endl;
+		PrintCharacterInfoStat(character->GetCharacterStat());
 		cout << " * 방어율: " << character->GetDamageReduction() << " %" << endl;
 		cout << " * 명중률: " << character->GetAccuracy() << " %" << endl;
 		cout << " * 스킬데미지증가율: " << character->GetSkillEnhancement() << " %" << endl;
 		cout << " * 치명타율: " << character->GetCriticalChance() << " %" << endl;
+		cout << " * 경험치: " << character->GetExperience() << " / " << character->GetExperienceCapacity() << endl;
+		cout << " * 골드: " << character->GetGold() << " 원" << endl;
 		cout << "====================================================================" << endl;
+	}
+	else
+	{
+		cout << "캐릭터가 존재하지 않습니다...." << endl;
+	}
+
+}
+
+void CharacterManager::PrintCharacterInfoStat(CharacterStat stat)
+{
+	cout << " * STR: " << stat.STR << endl;
+	cout << " * DEX: " << stat.DEX << endl;
+	cout << " * INT: " << stat.INT << endl;
+	cout << " * LUK: " << stat.LUK << endl;
+
+}
+
+void CharacterManager::SetCharacterStat()
+{
+	int choice = 0;
+	bool isComplete = false;
+
+	Character* character = Character::GetInstance();
+	if (character != nullptr)
+	{
+		
+		CharacterStat stat = character->GetCharacterStat();
+
+		// test
+		character->SetStatStock(5);
+
+		int statStock = character->GetStatStock();
+
+		while (!isComplete)
+		{
+			system("cls");
+			cout << "현재 플레이어의 스텟 정보입니다.===========================" << endl;
+			PrintCharacterInfoStat(stat);
+			cout << "===========================================================" << endl;
+			cout << "남은스텟: " << statStock << " POINT" << endl;
+			cout << "[1]. STR ↑ / [2]. STR ↓" << endl;
+			cout << "[3]. DEX ↑ / [4]. DEX ↓" << endl;
+			cout << "[5]. INT ↑ / [6]. INT ↓" << endl;
+			cout << "[7]. LUK ↑ / [8]. LUK ↓" << endl;
+			cout << "[9]. 저장하기" << endl;
+			cout << "[0]. 뒤로가기" << endl;
+			cout << "선택: ";
+			cin >> choice;
+
+			if (cin.fail())
+			{
+				cout << "숫자만 입력가능합니다." << endl;
+				Sleep(500);
+				cin.clear();
+				cin.ignore();
+
+				continue;
+			}
+
+			// 뒤로가기
+			if (choice == 0)
+			{
+				break;
+			}
+
+			// 저장하기
+			if (choice == 9)
+			{
+				character->SetStatStock(statStock);
+				character->SetCharacterStat(stat);
+				GenerateCharacter(*character, false);
+				break;
+			}
+
+			// 초과해서 찍지 못하도록
+			if (statStock == character->GetStatStock() && choice % 2 == 0)
+			{
+				continue;
+			}
+
+			if (statStock > 0 || choice % 2 == 0)
+			{
+				switch (choice)
+				{
+				case 1:
+					stat.STR++;
+					statStock--;
+					break;
+				case 2:
+					if (stat.STR > 0)
+					{
+						stat.STR--;
+						statStock++;
+					}
+					break;
+				case 3:
+					stat.DEX++;
+					statStock--;
+					break;
+				case 4:
+					if (stat.DEX > 0)
+					{
+						stat.DEX--;
+						statStock++;
+					}
+					break;
+				case 5:
+					stat.INT++;
+					statStock--;
+					break;
+				case 6:
+					if (stat.INT > 0)
+					{
+						stat.INT--;
+						statStock++;
+					}
+					break;
+				case 7:
+					stat.LUK++;
+					statStock--;
+					break;
+				case 8:
+					if (stat.LUK > 0)
+					{
+						stat.LUK--;
+						statStock++;
+					}
+					break;
+				default:
+					cout << "잘못된 입력입니다." << endl;
+					Sleep(500);
+					break;
+				}
+			}
+			else
+			{
+				cout << "능력치를 올릴 스텟이 존재하지 않습니다." << endl;
+				Sleep(1000);
+				continue;
+			}
+
+		}
 	}
 
 }

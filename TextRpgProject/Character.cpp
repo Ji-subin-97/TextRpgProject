@@ -19,6 +19,9 @@ void Character::Init()
 	accuracy = 50.0;
 	skillEnhancement = 0.0;
 	criticalChance = 0.0;
+
+	statStock = 0;
+	statStockAll = 0;
 }
 
 // Getter
@@ -97,6 +100,16 @@ CharacterStat Character::GetCharacterStat() const
 	return stat;
 }
 
+int Character::GetStatStock() const
+{
+	return statStock;
+}
+
+int Character::GetStatStockAll() const
+{
+	return statStockAll;
+}
+
 // Setter
 void Character::SetName(const string& _name)
 {
@@ -172,3 +185,15 @@ void Character::SetCharacterStat(CharacterStat _stat)
 {
 	stat = _stat;
 }
+
+void Character::SetStatStock(int _statStock)
+{
+	statStock = _statStock;
+}
+
+void Character::SetStatStockAll(int _statStockAll)
+{
+	statStockAll = _statStockAll;
+}
+
+

@@ -34,6 +34,8 @@ private:
 	double criticalChance;				// 치명타확률 LUK
 
 	CharacterStat stat;					// 스텟
+	int statStock;						// 올릴수있는 스텟양
+	int statStockAll;					// 전체 스텟양
 
 	Character() = default;
 	~Character() = default;
@@ -57,6 +59,8 @@ public:
 	double GetSkillEnhancement() const;
 	double GetCriticalChance() const;
 	CharacterStat GetCharacterStat() const;
+	int GetStatStock() const;
+	int GetStatStockAll() const;
 
 	void SetName(const std::string& _name);
 	void SetLevel(int _level);
@@ -73,4 +77,9 @@ public:
 	void SetSkillEnhancement(double _skillEnhancement);
 	void SetCriticalChance(double _criticalChance);
 	void SetCharacterStat(CharacterStat _stat);
+	void SetStatStock(int _statStock);
+	void SetStatStockAll(int _statStockAll);
+
+	// 캐릭터 행동
+	int CharacterAttack();
 };
