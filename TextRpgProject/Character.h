@@ -97,10 +97,10 @@ public:
 
 	// 캐릭터 행동
 	void CharacterLevelUp();					// 레벨업
-
 	int CharacterAttack();						// 공격
 	
 	void TakeDamage(int damage);				// 데미지입음
+	void TakeExp(int exp);						// 경험치얻음
 
 	// 아이템관련
 	// void TakeItem(Item item);				// 아이템 얻기

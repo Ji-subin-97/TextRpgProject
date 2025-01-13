@@ -28,6 +28,24 @@
     <Filter Include="소스 파일\Skill">
       <UniqueIdentifier>{e9b6c605-dbe7-48e3-8c5e-af502a63ed00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="헤더 파일\Game">
+      <UniqueIdentifier>{44a0a889-374c-4039-aeb3-347f82b4034b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Battle">
+      <UniqueIdentifier>{bb941a0e-1b59-42e3-a359-bae94408f33c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Battle">
+      <UniqueIdentifier>{73f5a966-7e66-46eb-a45b-5fd84f691dad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Monster">
+      <UniqueIdentifier>{36c65c3f-6638-47a5-9222-29f34766c201}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Monster">
+      <UniqueIdentifier>{76aaec6c-4a0d-4999-b543-db92ac6b274d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Game">
+      <UniqueIdentifier>{d0f9229e-0ebd-4080-b91a-a159c36eefbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -38,9 +56,6 @@
     </ClCompile>
     <ClCompile Include="CharacterManager.cpp">
       <Filter>소스 파일\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterObserver.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="FireBall.cpp">
       <Filter>소스 파일\Skill</Filter>
@@ -60,15 +75,30 @@
     <ClCompile Include="Sparata.cpp">
       <Filter>소스 파일\Skill</Filter>
     </ClCompile>
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>소스 파일\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleManager.cpp">
+      <Filter>소스 파일\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>소스 파일\Battle</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>소스 파일\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>소스 파일\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>소스 파일\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>소스 파일\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Monster.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Item.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
@@ -83,14 +113,38 @@
     <ClInclude Include="Random.h">
       <Filter>헤더 파일\ETC</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterObserver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Skill.h">
       <Filter>헤더 파일\Skill</Filter>
     </ClInclude>
     <ClInclude Include="SkillManager.h">
       <Filter>헤더 파일\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>헤더 파일\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterObserver.h">
+      <Filter>헤더 파일\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleManager.h">
+      <Filter>헤더 파일\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>헤더 파일\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>헤더 파일\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>헤더 파일\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterType.h">
+      <Filter>헤더 파일\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Goblin.h">
+      <Filter>헤더 파일\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>헤더 파일\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

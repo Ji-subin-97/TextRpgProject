@@ -127,28 +127,40 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="BattleManager.cpp" />
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="FireBall.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Goblin.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mateor.cpp" />
+    <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="SkillManager.cpp" />
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Sparata.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="BattleManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Goblin.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterManager.h" />
+    <ClInclude Include="MonsterType.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillManager.h" />
+    <ClInclude Include="Slime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

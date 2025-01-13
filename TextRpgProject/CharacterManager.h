@@ -12,6 +12,7 @@ private:
 	friend class SingleTon<CharacterManager>;
 public:
 	void CreateCharacter();								// 캐릭터생성
+	Character* GetCharacter();	// 현재 캐릭터 가져오기
 	void CreateRandomStat(Character& character);		// 캐릭터스텟
 	void GenerateCharacter(Character& character, bool isFirst);		// 스텟기반 캐릭터설정
 

@@ -84,6 +84,17 @@ void CharacterManager::CreateCharacter()
 
 }
 
+Character* CharacterManager::GetCharacter()
+{
+	Character* character = Character::GetInstance();
+
+	if (character == nullptr) {
+		cout << "캐릭터가 존재하지않습니다." << endl;
+	}
+
+	return character;
+}
+
 void CharacterManager::CreateRandomStat(Character& character)
 {
 	// 캐릭터 스텟은 1 ~ 10 입니다.

@@ -266,6 +266,15 @@ void Character::TakeDamage(int damage)
 	hp -= damage;
 }
 
+void Character::TakeExp(int exp)
+{
+	experience += exp;
+	if (experience > experienceCapacity)
+	{
+		CharacterLevelUp();
+	}
+}
+
 // 스킬관련 ===========================================================================================
 
 void Character::PrintSkillList()
