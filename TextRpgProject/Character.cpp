@@ -1,4 +1,7 @@
+#include <iostream>
+#include <Windows.h>
 #include "Character.h"
+#include "Random.h"
 
 using namespace std;
 
@@ -196,4 +199,44 @@ void Character::SetStatStockAll(int _statStockAll)
 	statStockAll = _statStockAll;
 }
 
+// 캐릭터 행동
 
+int Character::CharacterAttack()
+{
+	// 공격계산 : 명중 실패시 데미지 0, 명중시 (공격력 * 1.3(치명타확률 배수는 1.3배))
+	int attack = this->attack;
+	double accuracy = this->accuracy;
+	double randomScope = GetDoubleToRandom(0.0, 100.0);
+	
+	if (randomScope > accuracy)
+	{
+		cout << "[ " << name << " ] 님의 공격이 빗나갔습니다!" << endl;
+		Sleep(1000);
+		return 0;
+	}
+
+    double criticalChance = this->criticalChance;
+	randomScope = GetDoubleToRandom(0.0, 100.0);
+
+	if (randomScope < criticalChance)
+	{
+		attack = static_cast<int>(attack * 1.3);
+		cout << "[ " << name << " ] 님의 공격이 " << attack  << "만큼 치명적인 데미지를 주었습니다!" << endl;
+	}
+	else {
+		cout << "[ " << name << " ] 님의 공격이 " << attack << "만큼 데미지를 주었습니다!" << endl;
+	}
+	Sleep(1000);
+
+	return attack;
+}
+
+void Character::ChracterUseItem()
+{
+	// 캐릭터 아이템사용
+}
+
+void Character::TakeDamage(int damage)
+{
+
+}

@@ -81,5 +81,8 @@ public:
 	void SetStatStockAll(int _statStockAll);
 
 	// 캐릭터 행동
-	int CharacterAttack();
+	int CharacterAttack();						// 공격
+	void ChracterUseItem();						// 아이템사용
+
+	void TakeDamage(int damage);				// 데미지입음
 };
