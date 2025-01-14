@@ -5,7 +5,6 @@ string TextBox::AddBorderPiece(string& text) const
     string str;
     int text_length = (int)text.size();
     int width = this->GetSize().X;
-    int padding = this->GetPadding();
     Border border = this->GetBorder();
 
     int start = (width - 2 - text_length) / 2;
@@ -65,10 +64,9 @@ void TextBox::SetText(const string& _text)
     int size = (int)_text.size();
     int width = this->GetSize().X;
     int height = this->GetSize().Y;
-    int padding = this->GetPadding();
 
     if (size > width - 2) {
-        width = size + 2 + padding * 2;
+        width = size + 2;
         this->SetSize(width, height);
     }
 

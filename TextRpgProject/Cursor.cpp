@@ -59,11 +59,14 @@ void Cursor::ShowCursor()
 
 void Cursor::SetTextColor(ForeColor color)
 {
-	cout << ESC << "[" << (int)color << "m";
+	cout << ESC << "[" << static_cast<int>(color) << "m";
 }
 void Cursor::SetTextColor(RGB color)
 {
-	cout << ESC << "[38;2;" << color.r << ";" << color.g << ";" << color.b << "m";
+	cout << ESC << "[38;2;"
+		<< static_cast<int>(color.r) << ";"
+		<< static_cast<int>(color.g) << ";"
+		<< static_cast<int>(color.b) << "m";
 }
 
 void Cursor::ResetTextColor()
@@ -73,7 +76,7 @@ void Cursor::ResetTextColor()
 
 void Cursor::SetBackgroundColor(BackColor color)
 {
-	cout << ESC << "[" << (int)color << "m";
+	cout << ESC << "[" << static_cast<int>(color) << "m";
 }
 
 void Cursor::ResetBackgroundColor()
@@ -96,7 +99,7 @@ void Cursor::ResetAllStyle()
 //}
 void Cursor::SetTextStyle(TextStyle style)
 {
-	cout << ESC << "[" << (int)style << ";" << "m";
+	cout << ESC << "[" << static_cast<int>(style) << ";" << "m";
 }
 
 void Cursor::ResetTextStyle()

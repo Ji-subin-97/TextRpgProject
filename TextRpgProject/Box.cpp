@@ -13,11 +13,27 @@ Box::Box(Pos pos)
 void Box::SetSize(int _width, int _height)
 {
     this->UpdateSize(_width, _height);
+    this->AddBorder();
 }
 
 void Box::SetSize(Pos size)
 {
     this->UpdateSize(size);
+    this->AddBorder();
+}
+
+void Box::ExpendWidth(int value)
+{
+    Pos size = this->GetSize();
+    size.X += value * 2;
+    this->SetSize(size);
+}
+
+void Box::ExpendHeight(int value)
+{
+    Pos size = this->GetSize();
+    size.Y += value * 2;
+    this->SetSize(size);
 }
 
 string Box::MakeLine(LineType type) const
@@ -57,21 +73,16 @@ string Box::MakeLine(LineType type) const
 
     return line;
 }
-void Box::SetPadding(int value)
-{
-    this->padding = value;
-}
-void Box::SetMargin(int value)
-{
-    this->margin = value;
-}
-//void Box::SetWidth(int value)
+//void Box::SetPadding(int value)
 //{
-//    this->width = value;
+//    this->padding = value;
+//    int length = this->padding * 2;
+//    Pos size = this->GetSize();
+//    this->SetSize(size + Pos(length, length));
 //}
-//void Box::SetHeight(int value)
+//void Box::SetMargin(int value)
 //{
-//    this->height = value;
+//    this->margin = value;
 //}
 void Box::SetBorder(Border _border)
 {
@@ -104,32 +115,21 @@ void Box::SetBorderHorizontalOnce(char style)
     border.top = style;
     border.bottom = style;
 }
-int Box::GetPadding() const
-{
-    return this->padding;
-}
-int Box::GetMargin() const
-{
-    return this->margin;
-}
-
-//int Box::GetWidth() const
+//int Box::GetPadding() const
 //{
-//    return this->width;
+//    return this->padding;
 //}
-//
-//int Box::GetHeight() const
+//int Box::GetMargin() const
 //{
-//    return this->height;
+//    return this->margin;
 //}
-
 Border Box::GetBorder() const
 {
     return this->border;
 }
 
-void Box::LoadFromTxt(string filename)
-{
-    vector<string> body = Util::ReadText(filename);
-    this->SetBody(body);
-}
+//void Box::LoadFromTxt(string filename)
+//{
+//    vector<string> body = Util::ReadText(filename);
+//    this->SetBody(body);
+//}

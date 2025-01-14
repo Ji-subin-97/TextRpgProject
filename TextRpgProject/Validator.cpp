@@ -8,7 +8,7 @@ bool Validator::IsBlank(const string& name)
 
 bool Validator::IsValidLength(const string& name, int min, int max)
 {
-    int length = name.length();
+    int length = (int)name.length();
     if (length >= min && length <= max) return true;
     return false;
 }

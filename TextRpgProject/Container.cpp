@@ -2,19 +2,19 @@
 
 void Container::AddBorder()
 {
-    vector<string> body;
-    int height = this->GetSize().Y;
+    //vector<string> body;
+    //int height = this->GetSize().Y;
 
-    body.push_back(MakeLine(LineType::top));
-    for (int i = 0; i < height - 2; i++) {
-        body.push_back(MakeLine(LineType::middle));
-    }
-    body.push_back(MakeLine(LineType::bottom));
+    //body.push_back(MakeLine(LineType::top));
+    //for (int i = 0; i < height - 2; i++) {
+    //    body.push_back(MakeLine(LineType::middle));
+    //}
+    //body.push_back(MakeLine(LineType::bottom));
 
-    int text_index = height % 2 == 0 ? (height / 2) - 1 : height / 2;
-    //body[text_index] = MakeLine(_text);
+    //int text_index = height % 2 == 0 ? (height / 2) - 1 : height / 2;
+    ////body[text_index] = MakeLine(_text);
 
-    this->SetBody(body);
+    //this->SetBody(body);
 }
 
 Container::Container()

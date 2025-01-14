@@ -59,10 +59,10 @@ void Renderer::InitLogBox()
     this->logBox = new TextBox();
     Pos size = this->appSize;
     int start = size.Y;
-    size.Y /= 4;
+    size.Y /= 3;
     start -= size.Y;
     this->logBox->SetSize(size);
-    this->logBox->SetPos(size.X, start);
+    this->logBox->SetPos(1, start);
 }
 #include <functional>
 
@@ -92,7 +92,7 @@ void Renderer::Render()
 
     // rootContainer의 모든 자식 객체를 렌더링
     for (Object* object : rootContainer->GetChildren()) {
-        renderObject(object);
+        DrawObject(object);
     }
     this->DrawObject(this->logBox);
 }

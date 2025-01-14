@@ -7,16 +7,16 @@ Container* GameMap::index()
 
     TextBox* title = new TextBox("TextRPG");
     title->SetPos(40, 5);
+    title->SetSize(30, 3);
+    title->ExpendHeight(1);
     root->AddObject(title);
-
-    Container* menuContainer = new Container({ 40, 10 });
-    menuContainer->SetSize(12, 30);
     TextBox* start = new TextBox("시작");
     TextBox* end = new TextBox("종료");
-    end->move(10, 10);
-    menuContainer->AddObject(start);
-    menuContainer->AddObject(end);
-    root->AddObject(menuContainer);
-
+    start->ExpendWidth(1);
+    end->ExpendWidth(1);
+    start->SetPos(40, 15);
+    end->SetPos(62, 15);
+    root->AddObject(start);
+    root->AddObject(end);
     return root;
 }

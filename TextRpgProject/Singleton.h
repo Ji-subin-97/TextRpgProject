@@ -20,11 +20,6 @@ public:
     static void DeleteInstance();
 };
 
-#define BLOCK_CONSTRUCTOR(ClassName)        \
-        friend class Singleton<ClassName>;  \
-        ClassName() = default;              
-
-
 template <typename T>
 T* Singleton<T>::instance = nullptr;
 

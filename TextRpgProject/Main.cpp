@@ -7,7 +7,7 @@
 #include "TextBox.h"
 #include <windows.h>
 #include "UIStruct.h"
-
+#include "Cursor.h"
 using namespace std;
 
 int main()
@@ -16,9 +16,6 @@ int main()
 	//gameManager->StartGame();
 	//gameManager->DeleteInstance();
 	Renderer* r = Renderer::GetInstance();
-	TextBox t("owo");
-    //r->AddObject(&t);
 	r->Render();
-
 	return 0;
 }
