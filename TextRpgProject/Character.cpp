@@ -275,6 +275,11 @@ void Character::TakeExp(int exp)
 	}
 }
 
+void Character::TakeGold(int gold)
+{
+	this->gold += gold;
+}
+
 // 스킬관련 ===========================================================================================
 
 void Character::PrintSkillList()

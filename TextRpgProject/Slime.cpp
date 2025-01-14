@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Slime.h"
 #include "Random.h"
 
@@ -11,6 +12,13 @@ Slime::Slime(int playerLevel) {
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }
+ 
+int Slime::MonsterAttack()
+{
+	cout << "슬라임은 출렁거리며 돌진했다." << endl;
+
+	return attack;
+}
 
 void Slime::TakeDamage(int attack)
 {
@@ -20,6 +28,16 @@ void Slime::TakeDamage(int attack)
 int Slime::DropExp()
 {
 	return GetIntToRandom(5, 7);
+}
+
+int Slime::DropGold()
+{
+	return GetIntToRandom(10, 20);
+}
+
+void Slime::Die()
+{
+	cout << "슬라임은 녹아버렸다." << endl;
 }
 
 const string& Slime::GetName() const

@@ -101,6 +101,7 @@ public:
 	
 	void TakeDamage(int damage);				// 데미지입음
 	void TakeExp(int exp);						// 경험치얻음
+	void TakeGold(int gold);					// 골드얻음
 
 	// 아이템관련
 	// void PrintItemList();					// 캐릭터가 현재가지고있는 아이템 목록

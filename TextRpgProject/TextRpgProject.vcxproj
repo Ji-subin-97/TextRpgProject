@@ -136,13 +136,16 @@
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
+    <ClCompile Include="Human.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mateor.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
+    <ClCompile Include="Orc.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Sparata.cpp" />
+    <ClCompile Include="Troll.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -152,15 +155,18 @@
     <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
+    <ClInclude Include="Human.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="MonsterType.h" />
+    <ClInclude Include="Orc.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillManager.h" />
     <ClInclude Include="Slime.h" />
+    <ClInclude Include="Troll.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

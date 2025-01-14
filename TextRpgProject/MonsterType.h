@@ -3,5 +3,8 @@
 enum class MonsterType
 {
 	SLIME = 1,
-	GOBLIN = 2
+	TROLL = 2,
+	ORC = 3,
+	GOBLIN = 4,
+	HUMAN = 5
 };

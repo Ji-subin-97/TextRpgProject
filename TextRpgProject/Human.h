@@ -1,15 +1,16 @@
 #pragma once
+#pragma once
 #include "Monster.h"
 
-class Slime : public Monster
+class Human : public Monster
 {
 private:
 	std::string name;
 	int health;
 	int attack;
 public:
-	Slime(int playerLevel);
-	~Slime() {}
+	Human(int playerLevel);
+	~Human() {}
 
 	int MonsterAttack() override;
 	void TakeDamage(int attack) override;

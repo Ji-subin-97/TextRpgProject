@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Goblin.h"
 #include "Random.h"
 
@@ -12,6 +13,13 @@ Goblin::Goblin(int playerLevel) {
 	attack = playerLevel * attackBase;
 }
 
+int Goblin::MonsterAttack()
+{
+	cout << "고블린은 공격해왔다." << endl;
+
+	return attack;
+}
+
 void Goblin::TakeDamage(int attack)
 {
 	health -= attack;
@@ -20,6 +28,16 @@ void Goblin::TakeDamage(int attack)
 int Goblin::DropExp()
 {
 	return GetIntToRandom(10, 15);
+}
+
+int Goblin::DropGold()
+{
+	return GetIntToRandom(30, 50);
+}
+
+void Goblin::Die()
+{
+	cout << "고블린은 더이상 심장이 뛰지 않는다." << endl;
 }
 
 const string& Goblin::GetName() const

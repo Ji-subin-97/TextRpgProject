@@ -11,12 +11,15 @@ public:
 	Goblin(int playerLevel);
 	~Goblin() {}
 
-	void TakeDamage(int attack);
-	int DropExp();
+	int MonsterAttack() override;
+	void TakeDamage(int attack) override;
+	int DropExp() override;
+	int DropGold() override;
+	void Die() override;
 
-	const std::string& GetName() const;
-	int GetHealth() const;
-	int GetAttack() const;
-	void SetHealth(int health);
-	void SetAttack(int attack);
+	const std::string& GetName() const override;
+	int GetHealth() const override;
+	int GetAttack() const override;
+	void SetHealth(int health) override;
+	void SetAttack(int attack) override;
 };

@@ -69,11 +69,16 @@ bool Battle::MonsterTurn(Monster* monster)
 {
 	if (monster->GetHealth() <= 0)
 	{
+		monster->Die();
+		Sleep(1500);
+
 		int exp = monster->DropExp();
+		int gold = monster->DropGold();
 		cout << character->GetName() << "Àº " << exp << " °æÇèÄ¡¸¦ È¹µæÇÏ¿´½À´Ï´Ù!" << endl;
+		cout << character->GetName() << "Àº " << gold << " °ñµå¸¦ È¹µæÇÏ¿´½À´Ï´Ù!" << endl;
 		Sleep(1500);
 		character->TakeExp(exp);
-
+		character->TakeGold(gold);
 		//Item* item = monster->DropItem(30);
 
 		//if (item != nullptr)
@@ -87,7 +92,7 @@ bool Battle::MonsterTurn(Monster* monster)
 	{
 		cout << monster->GetName() << " ÀÇ °ø°Ý!" << endl;
 		Sleep(1500);
-		character->TakeDamage(monster->GetAttack());
+		character->TakeDamage(monster->MonsterAttack());
 		Sleep(1500);
 	}
 

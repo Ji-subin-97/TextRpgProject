@@ -8,8 +8,11 @@ public:
 	Monster(int playerLevel) {};
 	virtual ~Monster() {}
 
+	virtual int MonsterAttack() = 0;
 	virtual void TakeDamage(int attack) = 0;
 	virtual int DropExp() = 0;
+	virtual int DropGold() = 0;
+	virtual void Die() = 0;
 
 	virtual const std::string& GetName() const = 0;
 	virtual int GetHealth() const = 0;
