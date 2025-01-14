@@ -6,16 +6,16 @@ Player::~Player()
 	delete playerBody;
 }
 
-void Player::SelectRace(PawnId id)
-{
-	switch (id)
-	{
-		case PawnId::HUMAN :
-		{
-			playerBody = new Human(1);
-		}
-	}
-}
+//void Player::SelectRace(PawnId id)
+//{
+//	switch (id)
+//	{
+//		case PawnId::HUMAN :
+//		{
+//			playerBody = new Human(1);
+//		}
+//	}
+//}
 
 void Player::SetName(const string& name)
 {
