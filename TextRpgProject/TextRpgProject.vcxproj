@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,8 +137,6 @@
     <ClCompile Include="CharacterObserver.cpp" />
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="Cursor.cpp" />
-    <ClCompile Include="Entity.cpp" />
-    <ClCompile Include="FactoryManager.cpp" />
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GameMap.cpp" />
@@ -146,23 +145,17 @@
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="InputBox.cpp" />
-    <ClCompile Include="Item.cpp" />
     <ClCompile Include="LogBox.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mateor.cpp" />
     <ClCompile Include="MonsterManager.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Orc.cpp" />
-    <ClCompile Include="Pawn.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerManager.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Singleton.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Sparata.cpp" />
     <ClCompile Include="TextBox.cpp" />
-    <ClCompile Include="TradeManager.cpp" />
     <ClCompile Include="Troll.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="Validator.cpp" />
@@ -177,23 +170,18 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="Cursor.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="FactoryManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GameMap.h" />
     <ClInclude Include="Goblin.h" />
     <ClInclude Include="GoldenGoblin.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="InputBox.h" />
-    <ClInclude Include="Item.h" />
     <ClInclude Include="LogBox.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
     <ClInclude Include="MonsterType.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Orc.h" />
-    <ClInclude Include="Pawn.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerManager.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="SingleTon.h" />
@@ -202,7 +190,6 @@
     <ClInclude Include="Slime.h" />
     <ClInclude Include="struct.h" />
     <ClInclude Include="TextBox.h" />
-    <ClInclude Include="TradeManager.h" />
     <ClInclude Include="Troll.h" />
     <ClInclude Include="UIStruct.h" />
     <ClInclude Include="Util.h" />
