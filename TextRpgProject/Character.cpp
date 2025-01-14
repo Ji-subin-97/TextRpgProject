@@ -18,7 +18,7 @@ void Character::Init()
 	experienceCapacity = 50;
 	gold = 0;
 
-	damageReduction = 0.0;
+	damageReduction = 0;
 	accuracy = 50.0;
 	skillEnhancement = 0.0;
 	criticalChance = 0.0;
@@ -96,7 +96,7 @@ int Character::GetGold() const
 	return gold;
 }
 
-double Character::GetDamageReduction() const
+int Character::GetDamageReduction() const
 {
 	return damageReduction;
 }
@@ -182,7 +182,7 @@ void Character::SetGold(int _gold)
 	gold = _gold;
 }
 
-void Character::SetDamageReduction(double _damageReduction)
+void Character::SetDamageReduction(int _damageReduction)
 {
 	damageReduction = _damageReduction;
 }
@@ -260,8 +260,8 @@ int Character::CharacterAttack()
 
 void Character::TakeDamage(int damage)
 {
-	// 데미지 계산: HP - (피해 감소율 * 데미지)
-	damage = static_cast<int>(damage * (damageReduction / 100));
+	// 데미지 계산: HP - (데미지 - 피해감소율) 단 0 미만 X
+	damage = damage - damageReduction < 0 ? 0 : damage - damageReduction;
 	cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
 	hp -= damage;
 }

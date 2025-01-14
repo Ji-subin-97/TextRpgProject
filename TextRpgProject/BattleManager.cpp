@@ -20,7 +20,7 @@ void BattleManager::PrintBattleStatus()
 
 	cout << "==========================================================================" << endl;
 	cout << character->GetName() << " | " << character->GetHp() << " HP | " << character->GetMp() << " MP" << endl;
-	cout << "피해감소율: " << character->GetDamageReduction() << " % | " << "명중률: " << character->GetAccuracy() << " % " << endl;
+	cout << "피해감소: " << character->GetDamageReduction() << " | " << "명중률: " << character->GetAccuracy() << " % " << endl;
 	cout << "스킬강화율: " << character->GetSkillEnhancement() << " % | " << "치명타확률: " << character->GetCriticalChance() << " % " << endl;
 	cout << character->GetLevel() << " LV | " << character->GetExperience() << " EXP | " << character->GetGold() << " 원" << endl;
 	cout << "==========================================================================" << endl;
