@@ -280,6 +280,16 @@ void Character::TakeGold(int gold)
 	this->gold += gold;
 }
 
+bool Character::IsDead()
+{
+	if (hp <= 0)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 // 스킬관련 ===========================================================================================
 
 void Character::PrintSkillList()

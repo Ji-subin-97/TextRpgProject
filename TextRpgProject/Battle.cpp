@@ -1,6 +1,7 @@
 #include <iostream>
 #include <Windows.h>
 #include "Battle.h"
+#include "GameManager.h"
 
 using namespace std;
 
@@ -16,6 +17,14 @@ bool Battle::PlayerTurn(Monster* monster)
 
 	while (true)
 	{
+		if (character->IsDead())
+		{
+			cout << "캐릭터가 사망하였습니다. 게임이 종료됩니다." << endl;
+			Sleep(2000);
+			GameManager::GetInstance()->EndGame();
+			exit(0);
+		}
+
 		cout << "행동입력: ";
 		cin >> choice;
 

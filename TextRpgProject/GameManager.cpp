@@ -73,13 +73,7 @@ bool GameManager::Main()
 	case 4:
 		break;
 	case 5:
-		cout << "게임을 종료합니다." << endl;
-
-		skillManager->DeleteInstance();
-		characterManager->DeleteInstance();
-		battleManager->DeleteInstance();
-		this->DeleteInstance();
-
+		EndGame();
 		return false;
 		break;
 	default:
@@ -87,7 +81,6 @@ bool GameManager::Main()
 		return true;
 		break;
 	}
-
 
 	return true;
 }
@@ -170,5 +163,15 @@ void GameManager::Battle()
 			break;
 		}
 	}
+}
+
+void GameManager::EndGame()
+{
+	cout << "게임을 종료합니다." << endl;
+
+	skillManager->DeleteInstance();
+	characterManager->DeleteInstance();
+	battleManager->DeleteInstance();
+	this->DeleteInstance();
 }
 
