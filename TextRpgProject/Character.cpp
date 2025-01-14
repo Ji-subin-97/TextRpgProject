@@ -310,7 +310,17 @@ int Character::UseSkill()
 
 	while (true)
 	{
+		// 사용할 스킬이 없을경우
+		if (skillInventory.size() == 0)
+		{
+			cout << "현재 사용할 수 있는 스킬이 없습니다." << endl;
+			Sleep(1000);
+
+			return -1;
+		}
+
 		PrintSkillList();
+		cout << "[ 0 ] 사용안함." << endl;
 		cout << "사용하실 스킬을 선택해주세요." << endl;
 		cout << "선택: ";
 		cin >> choice;
@@ -322,6 +332,12 @@ int Character::UseSkill()
 			cin.ignore();
 
 			continue;
+		}
+
+		// 사용안함 눌렀을시 -1 리턴
+		if (choice == 0)
+		{
+			return -1;
 		}
 
 		const unique_ptr<Skill>& skill = skillInventory[choice - 1];
