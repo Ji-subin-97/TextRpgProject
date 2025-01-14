@@ -286,7 +286,6 @@ void Character::PrintSkillList()
 		cout << "[ " << index << " ] " << item->GetSkillName() << " / 데미지: " << item->GetDamage() << " / 소비마나: " << item->GetMp() << endl;
 		index++;
 	}
-	Sleep(1000);
 }
 
 void Character::TakeSkill(unique_ptr<Skill> skill)
