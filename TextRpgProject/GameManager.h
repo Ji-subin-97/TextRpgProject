@@ -1,32 +1,15 @@
 #pragma once
+#include "SingleTon.h"
 
-#include <string>
-#include "PlayerManager.h"
-#include "FactoryManager.h"
-#include "BattleManager.h"
-#include "TradeManager.h"
-#include "Singleton.h"
-
-using namespace std;
-
-class GameManager : public Singleton<GameManager>
+class GameManager : public SingleTon<GameManager>
 {
-    friend class Singleton<GameManager>;
-     
 private:
-    GameManager() = default;
-
-    string gameName = "TextRPG";
-    PlayerManager* playerManager;
-    FactoryManager* factoryManager;
-    BattleManager* battleManager;
-    TradeManager* tradeManager;
-
-    void InitManager();
+	GameManager() = default;
+	~GameManager() = default;
+	friend class SingleTon<GameManager>;
 public:
-    void StartGame();
-    void ProgressGame();
-    void SelectOption();
-    void EncounterEnemy();
+	void Init();					// 게임 초기세팅
+	void CreateCharacter();			// 플레이어 생성
+	bool Main();					// 메인화면
+	void Battle();					// 전투화면
 };
-
