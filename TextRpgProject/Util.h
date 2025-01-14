@@ -17,5 +17,6 @@ namespace Util
 	// 오브젝트의 너비를 구하는 함수
 	int GetLongestStringSize(vector<string>& text);
 	Pos GetConsoleWindowSize();
+	string inputText(int maxLength);
 };
 

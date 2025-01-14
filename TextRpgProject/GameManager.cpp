@@ -1,9 +1,14 @@
 #include <iostream>
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include "GameManager.h"
 #include "CharacterManager.h"
 #include "SkillManager.h"
 #include "BattleManager.h"
+//렌더링 
+#include "Renderer.h"
+#include "GameMap.h"
 
 using namespace std;
 
@@ -11,22 +16,29 @@ CharacterManager* characterManager;
 BattleManager* battleManager;
 SkillManager* skillManager;
 static Character* curCharacter;
+//렌더링 클래스 추가
+Renderer* renderer;
+
 
 void GameManager::Init()
 {
 	characterManager = CharacterManager::GetInstance();
 	battleManager = BattleManager::GetInstance();
 	skillManager = SkillManager::GetInstance();
-
+	//렌더링 관리자
+	renderer = Renderer::GetInstance();
 	battleManager->Init();
 }
 
 void GameManager::CreateCharacter()
 {
+	/*
 	cout << "----------------------------------------------" << endl;
 	cout << "|                  TEXT RPG                  |" << endl;
 	cout << "----------------------------------------------" << endl;
+	*/
 
+	renderer->SelectMap(GameMap::index());							// 캐릭터 생성화면
 	characterManager->CreateCharacter();							// 캐릭터 생성
 	curCharacter = characterManager->GetCharacter();				// 현재 캐릭터지정
 

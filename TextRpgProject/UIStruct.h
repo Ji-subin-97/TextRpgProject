@@ -108,6 +108,11 @@ struct Pos {
         return Pos(X + 1, Y + 1);
     }
 };
+
+#ifdef RGB
+#undef RGB
+#endif
+
 // RGB 구조체
 // uInt8 : 0 ~ 255 사이의 숫자로 unsigned __int8 줄임말
 struct RGB {
@@ -115,14 +120,6 @@ struct RGB {
     uInt8 g;
     uInt8 b;
 
-    RGB() {
-        r = 255;
-        g = 255;
-        b = 255;
-    }
-    RGB(uInt8 _r, uInt8 _g, uInt8 _b) {
-        r = _r;
-        g = _g;
-        b = _b;
-    }
+    RGB() : r(255), g(255), b(255) {}
+    RGB(uInt8 _r, uInt8 _g, uInt8 _b) : r(_r), g(_g), b(_b) {}
 };

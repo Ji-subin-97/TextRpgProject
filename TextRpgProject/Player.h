@@ -7,10 +7,10 @@
 
 using namespace std;
  
-class Player : public Singleton<Player>
+class Player : public SingleTon<Player>
 {
 private:
-	friend class Singleton<Player>;
+	friend class SingleTon<Player>;
 	Pawn* playerBody;
 protected:
 	Player() = default;

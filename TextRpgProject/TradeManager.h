@@ -4,10 +4,10 @@
 #include "Player.h"
 
 // 상점 관리 클래스
-class TradeManager : public Singleton<TradeManager>
+class TradeManager : public SingleTon<TradeManager>
 {
 private:
-    friend class Singleton<TradeManager>;
+    friend class SingleTon<TradeManager>;
     TradeManager() = default;
 public:
     void DisplayItems();

@@ -1,7 +1,10 @@
 #include "Util.h"
 #include <random>
 #include <fstream>
+#define NOMINMAX
+#define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
+#include <conio.h>
 #include <iostream>
 
 string Util::Trim(const string& str)
@@ -83,4 +86,28 @@ Pos Util::GetConsoleWindowSize()
         return Pos(width, height);
     }
     return Pos(2, 2);
+}
+
+string Util::inputText(int maxLength)
+{
+    string str;
+
+    while (true) {
+        char ch = _getch();  // 문자를 입력받되 콘솔에 자동 출력되지 않음
+        if (ch == '\r') break;  // Enter 키로 입력 종료
+
+        if (ch == '\b') {  // 백스페이스 처리
+            if (!str.empty()) {
+                str.pop_back();  // 마지막 문자 제거
+                std::cout << "\b \b";  // 콘솔에서 한 문자 지우기
+            }
+            continue;
+        }
+
+        if (str.length() >= maxLength) continue;
+        str.push_back(ch);
+        cout << ch;
+    }
+    
+    return str;
 }
