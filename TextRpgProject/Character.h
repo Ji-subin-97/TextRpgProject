@@ -103,6 +103,7 @@ public:
 	void TakeExp(int exp);						// 경험치얻음
 
 	// 아이템관련
+	// void PrintItemList();					// 캐릭터가 현재가지고있는 아이템 목록
 	// void TakeItem(Item item);				// 아이템 얻기
 	// void UseItem();							// 아이템 사용
 

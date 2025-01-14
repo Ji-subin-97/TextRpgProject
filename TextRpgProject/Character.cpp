@@ -269,7 +269,7 @@ void Character::TakeDamage(int damage)
 void Character::TakeExp(int exp)
 {
 	experience += exp;
-	if (experience > experienceCapacity)
+	if (experience >= experienceCapacity)
 	{
 		CharacterLevelUp();
 	}
@@ -295,12 +295,12 @@ void Character::TakeSkill(unique_ptr<Skill> skill)
 
 	if (skillInventory.size() >= 3) {
 		cout << "더이상 스킬을 얻을 수 없습니다." << endl;
-		Sleep(1000);
+		Sleep(2000);
 	}
 
 	skillInventory.push_back(move(skill));
 
-	Sleep(1000);
+	Sleep(2000);
 }
 
 int Character::UseSkill()
@@ -328,6 +328,13 @@ int Character::UseSkill()
 
 		if (skill != nullptr)
 		{
+			// 스킬소모마나가 MP보다 클시 사용불가
+			if (mp < skill->GetMp())
+			{
+				cout << "스킬에 필요한 마나가 부족합니다." << endl;
+				break;
+			}
+
 			damage = skill->GetDamage() + static_cast<int>(skill->GetDamage() * skillEnhancement / 100);
 			cout << "[ " << name << " ] 님의 " << skill->GetSkillName() << "!" << endl;
 			mp -= skill->GetMp();
