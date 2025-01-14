@@ -6,10 +6,10 @@
 
 using namespace std;
 
-class PlayerManager : public Singleton<PlayerManager>
+class PlayerManager : public SingleTon<PlayerManager>
 {
 private:
-    friend class Singleton<PlayerManager>;
+    friend class SingleTon<PlayerManager>;
     PlayerManager() = default;
     Player* player;
     bool IsValid(const string& name);

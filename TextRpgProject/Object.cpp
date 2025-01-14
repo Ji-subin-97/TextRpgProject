@@ -49,9 +49,9 @@ void Object::SetPos(int x, int y)
 {
 	pos = Pos(x, y);
 }
-void Object::SetId(int id)
+void Object::SetId(int _id)
 {
-	id = id;
+	id = _id;
 }
 void Object::SetParant(Object* object)
 {
@@ -77,7 +77,7 @@ Pos Object::GetSize() const
 {
 	return size;
 }
-unsigned int Object::GetId() const
+int Object::GetId() const
 {
 	return id;
 }

@@ -1,6 +1,9 @@
 #include "TextBox.h"
+#include "Cursor.h"
+#include <iostream>
+using namespace std;
 
-string TextBox::AddBorderPiece(string& text) const
+string TextBox::AddBorderPiece(const string& text) const
 {
     string str;
     int text_length = (int)text.size();
@@ -71,4 +74,15 @@ void TextBox::SetText(const string& _text)
     }
 
     AddBorder();
+}
+
+void TextBox::Erase()
+{
+    Pos pos = ++this->GetPos();
+    for (int i = 0; i < this->GetSize().Y - 2; i++)
+    {
+        Cursor::SetPosition(pos);
+        cout << string(this->GetSize().X - 2, ' ');
+        pos.Y += 1;
+    }
 }

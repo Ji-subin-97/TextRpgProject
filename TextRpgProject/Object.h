@@ -13,8 +13,8 @@ class Object
 	Pos pos = { 1, 1 }; // (1,1) 이 시작점
 	Pos size = { 0, 0 };
 	int overlap = 0;
-	uInt8 depth = 0;
-	uInt32 id = 0;
+	//uInt8 depth = 0;
+	int id = 0;
 	Object* parent = nullptr;
 protected:
 	void UpdateSize();
@@ -38,7 +38,7 @@ public:
 	vector<string> GetBody() const;
 	Pos GetPos() const;
 	Pos GetSize() const;
-	unsigned int GetId() const;
+	int GetId() const;
 	int GetOverlap() const;
 	Object* GetParent() const;
 };
