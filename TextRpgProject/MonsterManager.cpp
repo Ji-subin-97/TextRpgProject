@@ -2,6 +2,7 @@
 #include "MonsterType.h"
 #include "Slime.h"
 #include "Goblin.h"
+#include "GoldenGoblin.h"
 #include "Orc.h"
 #include "Troll.h"
 #include "Human.h"
@@ -33,6 +34,13 @@ Monster* MonsterManager::CreateMonster(int num, int playerLevel)
 		monster = new Slime(playerLevel);
 		break;
 	}
+
+	return monster;
+}
+
+Monster* MonsterManager::CreateBossMonster()
+{
+	Monster* monster = new GoldenGoblin(0);
 
 	return monster;
 }

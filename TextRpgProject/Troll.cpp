@@ -6,6 +6,7 @@ using namespace std;
 
 Troll::Troll(int playerLevel) {
 	name = "트롤";
+	isBoss = false;
 
 	int healthBase = GetIntToRandom(50, 60);
 	int attackBase = GetIntToRandom(15, 20);
@@ -27,7 +28,7 @@ void Troll::TakeDamage(int attack)
 
 int Troll::DropExp()
 {
-	return GetIntToRandom(30, 50);
+	return GetIntToRandom(80, 100);
 }
 
 int Troll::DropGold()
@@ -38,6 +39,11 @@ int Troll::DropGold()
 void Troll::Die()
 {
 	cout << "거대한 몸뚱이는 더이상 움직이지 않는다." << endl;
+}
+
+bool Troll::IsBoss()
+{
+	return isBoss;
 }
 
 const string& Troll::GetName() const

@@ -17,6 +17,8 @@ public:
 	int DropGold() override;
 	void Die() override;
 
+	bool IsBoss() override;
+
 	const std::string& GetName() const override;
 	int GetHealth() const override;
 	int GetAttack() const override;

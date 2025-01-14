@@ -32,6 +32,9 @@ void BattleManager::PrintBattleStatus()
 			if (monster->GetHealth() > 0)
 			{
 				cout << "==========================================================================" << endl;
+				if (monster->IsBoss()) {
+					cout << "최종 보스" << endl;
+				}
 				cout << monster->GetName() << " | " << monster->GetHealth() << " HP | " << monster->GetAttack() << " AD" << endl;
 				cout << "==========================================================================" << endl;
 			}
@@ -57,9 +60,17 @@ bool BattleManager::CreateBattle(int battleLevel, Character* character)
 	vector<Monster*> monsters;
 	int playerLevel = character->GetLevel();
 
-	for (int i = 0; i < battleLevel; i++)
+	// 플레이어 레벨이 10일경우 보스몹 출연
+	if (playerLevel >= 10)
 	{
-		monsters.push_back(monsterManager.CreateMonster(battleLevel, character->GetLevel()));
+		monsters.push_back(monsterManager.CreateBossMonster());
+	}
+	else
+	{
+		for (int i = 0; i < battleLevel; i++)
+		{
+			monsters.push_back(monsterManager.CreateMonster(battleLevel, character->GetLevel()));
+		}
 	}
 
 	battle = new Battle(character, monsters, battleLevel);

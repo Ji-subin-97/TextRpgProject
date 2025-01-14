@@ -78,6 +78,16 @@ bool Battle::MonsterTurn(Monster* monster)
 {
 	if (monster->GetHealth() <= 0)
 	{
+		// 만약 처치한 몬스터가 보스몹일 경우 게임 종료
+		if (monster->IsBoss())
+		{
+			cout << "************************************************ 축하합니다! 최종 보스를 토벌하였습니다! ************************************************" << endl;
+			Sleep(2000);
+			cout << "게임이 종료됩니다." << endl;
+			GameManager::GetInstance()->EndGame();
+			exit(0);
+		}
+
 		monster->Die();
 		Sleep(1500);
 

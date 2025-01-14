@@ -6,6 +6,7 @@ using namespace std;
 
 Goblin::Goblin(int playerLevel) {
 	name = "고블린";
+	isBoss = false;
 
 	int healthBase = GetIntToRandom(20, 30);
 	int attackBase = GetIntToRandom(3, 5);
@@ -27,7 +28,7 @@ void Goblin::TakeDamage(int attack)
 
 int Goblin::DropExp()
 {
-	return GetIntToRandom(10, 15);
+	return GetIntToRandom(40, 45);
 }
 
 int Goblin::DropGold()
@@ -38,6 +39,11 @@ int Goblin::DropGold()
 void Goblin::Die()
 {
 	cout << "고블린은 더이상 심장이 뛰지 않는다." << endl;
+}
+
+bool Goblin::IsBoss()
+{
+	return isBoss;
 }
 
 const string& Goblin::GetName() const

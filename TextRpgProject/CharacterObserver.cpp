@@ -8,8 +8,8 @@ void CharacterManagerSystem::LevelUpEvent()
 
 	if (character != nullptr && charManager != nullptr)
 	{
-		// 캐릭터 5Lv마다 스킬랜덤 얻기
-		if (character->GetLevel() % 5 == 0)
+		// 캐릭터 3Lv마다 스킬랜덤 얻기
+		if (character->GetLevel() % 3 == 0)
 		{
 			charManager->CharacterGetSkill();
 		}

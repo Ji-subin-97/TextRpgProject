@@ -136,6 +136,7 @@
     <ClCompile Include="FireBall.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="Goblin.cpp" />
+    <ClCompile Include="GoldenGoblin.cpp" />
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Goblin.h" />
+    <ClInclude Include="GoldenGoblin.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />

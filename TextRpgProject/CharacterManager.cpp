@@ -349,7 +349,7 @@ void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사�
 	}
 
 	// 만약 경험치가 음수이면 0으로 초기화
-	if (character->GetExperience())
+	if (character->GetExperience() < 0)
 	{
 		character->SetExperience(0);
 	}

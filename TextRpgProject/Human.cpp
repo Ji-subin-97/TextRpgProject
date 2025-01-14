@@ -6,6 +6,7 @@ using namespace std;
 
 Human::Human(int playerLevel) {
 	name = "인간";
+	isBoss = false;
 
 	int healthBase = GetIntToRandom(60, 70);
 	int attackBase = GetIntToRandom(20, 30);
@@ -27,7 +28,7 @@ void Human::TakeDamage(int attack)
 
 int Human::DropExp()
 {
-	return GetIntToRandom(50, 80);
+	return GetIntToRandom(100, 150);
 }
 
 int Human::DropGold()
@@ -38,6 +39,11 @@ int Human::DropGold()
 void Human::Die()
 {
 	cout << "그는 죽었다." << endl;
+}
+
+bool Human::IsBoss()
+{
+	return isBoss;
 }
 
 const string& Human::GetName() const
