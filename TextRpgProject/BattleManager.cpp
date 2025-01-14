@@ -1,156 +1,318 @@
-#include <iostream>
-#include <Windows.h>
-#include <iomanip>
-#include "BattleManager.h"
-#include "MonsterManager.h"
+ï»¿#include <iostream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-void BattleManager::Init()
-{
-	battleLevel = 1;
-}
+// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½
+enum PawnId {
+    SLIME = 1,
+    TROLL = 2,
+    ORC = 3,
+    GOBLIN = 4,
+    HUMAN = 5
+};
 
-void BattleManager::PrintBattleStatus()
-{
-	const Character* character = battle->GetCharacter();
-	const vector<Monster*>& monsters = battle->GetMonsters();
+struct BaseAbility {
+    int health;
+    int attack;
+};
 
-	system("cls");
+class Item {
+private:
+    string name;
+    int value;
 
-	cout << "==========================================================================" << endl;
-	cout << character->GetName() << " | " << character->GetHp() << " HP | " << character->GetMp() << " MP" << endl;
-	cout << "ÇÇÇØ°¨¼ÒÀ²: " << character->GetDamageReduction() << " % | " << "¸íÁß·ü: " << character->GetAccuracy() << " % " << endl;
-	cout << "½ºÅ³°­È­À²: " << character->GetSkillEnhancement() << " % | " << "Ä¡¸íÅ¸È®·ü: " << character->GetCriticalChance() << " % " << endl;
-	cout << character->GetLevel() << " LV | " << character->GetExperience() << " EXP | " << character->GetGold() << " ¿ø" << endl;
-	cout << "==========================================================================" << endl;
+public:
+    Item(string _name, int _value) : name(_name), value(_value) {}
 
-	for (Monster* monster : monsters)
-	{
-		if (monster != nullptr)
-		{
-			if (monster->GetHealth() > 0)
-			{
-				cout << "==========================================================================" << endl;
-				cout << monster->GetName() << " | " << monster->GetHealth() << " HP | " << monster->GetAttack() << " AD" << endl;
-				cout << "==========================================================================" << endl;
-			}
-			else
-			{
-				cout << "==========================================================================" << endl;
-				cout << monster->GetName() << " *  Åä¹ú¿Ï·á * " << endl;
-				cout << "==========================================================================" << endl;
-			}
-		}
-	}
-}
+    string GetName() const {
+        return name;
+    }
 
-void BattleManager::PrintBattleResult()
-{
+    int GetValue() const {
+        return value;
+    }
+};
 
-}
+class Entity {
+private:
+    string name;
 
-bool BattleManager::CreateBattle(int battleLevel, Character* character)
-{
+public:
+    Entity() : name("Unknown") {}
+    virtual ~Entity() {}
 
-	MonsterManager monsterManager;
-	vector<Monster*> monsters;
-	int playerLevel = character->GetLevel();
+    void SetName(string _name) {
+        name = _name;
+    }
 
-	for (int i = 0; i < battleLevel; i++)
-	{
-		monsters.push_back(monsterManager.CreateMonster(battleLevel, character->GetLevel()));
-	}
+    string GetName() const {
+        return name;
+    }
+};
 
-	battle = new Battle(character, monsters, battleLevel);
+class Pawn : public Entity {
+private:
+    int level;
+    int health;
+    int attack;
+    int gold;
+    int experience;
+    vector<Item*> inventory;
 
-	if (battle != nullptr)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+public:
+    Pawn() : level(1), health(100), attack(10), gold(0), experience(0) {}
 
-}
+    void SetLevel(int _level) { level = _level; }
+    int GetLevel() const { return level; }
 
-void BattleManager::StartBattle()
-{
-	system("cls");
-	bool isEndBattle = false;		// ÀüÅõÁ¾·á ¿©ºÎ
-	bool isRun = false;				// ÇÃ·¹ÀÌ¾î µµ¸Á¿©ºÎ
-	int monsterDieCount = 0;		// ¸ó½ºÅÍ Ã³Ä¡¼ö
-	const vector<Monster*>& monsters = battle->GetMonsters();
+    void SetHealth(int _health) { health = _health; }
+    int GetHealth() const { return health; }
 
-	for (int i = 0; i < monsters.size(); i++)
-	{
-		bool isMonsterDie = false;	// i¹øÂ° ¸ó½ºÅÍ Ã³Ä¡¿©ºÎ
-		if (isEndBattle || isRun) break;
+    void SetAttack(int _attack) { attack = _attack; }
+    int GetAttack() const { return attack; }
 
-		while (!isEndBattle)
-		{
-			PrintBattleStatus();
-			isRun = battle->PlayerTurn(monsters[i]);
+    void SetGold(int _gold) { gold = _gold; }
+    int GetGold() const { return gold; }
 
-			if (isRun)
-			{
-				break;
-			}
+    void SetExperience(int _experience) { experience = _experience; }
+    int GetExperience() const { return experience; }
 
-			isMonsterDie = battle->MonsterTurn(monsters[i]);
+    void AddItemToInventory(Item* item) { inventory.push_back(item); }
+    Item* DropItem() {
+        if (inventory.empty()) {
+            cout << "No items to drop!" << endl;
+            return nullptr;
+        }
+        Item* itemToDrop = inventory.back();
+        inventory.pop_back();
+        cout << "Dropped item: " << itemToDrop->GetName() << endl;
+        return itemToDrop;
+    }
 
-			if (isMonsterDie) {
-				monsterDieCount++;
+    void ShowInventory() const {
+        cout << "Inventory: ";
+        for (const auto& item : inventory) {
+            cout << item->GetName() << " ";
+        }
+        cout << endl;
+    }
+};
 
-				if (monsterDieCount == monsters.size())
-				{
-					isEndBattle = true; // ¸ðµç ¸ó½ºÅÍ Åä¹ú½Ã ÀüÅõÁ¾·á
-				}
+class IMonster {
+public:
+    virtual void Attack() = 0;
+    virtual void TakeDamage(int damage) = 0;
+    virtual void Die() = 0;
+    virtual ~IMonster() {}
+};
 
-				break;
-			}
-		}
-	}
+class Player {
+private:
+    string name;
+    int coins;
 
-	if (isEndBattle || isRun)
-	{
-		string message;
+public:
+    Player(string _name, int _coins) : name(_name), coins(_coins) {}
 
-		if (isEndBattle)
-		{
-			message = "¸ðµç ¸ó½ºÅÍ¸¦ Ã³Ä¡ÇÏ¿´½À´Ï´Ù.";
-		}
-		else
-		{
-			message = "µµ¸ÁÃÆ½À´Ï´Ù.";
-		}
+    void SetCoins(int _coins) { coins = _coins; }
+    int GetCoins() const { return coins; }
 
-		EndBattle(message);
-		return;
-	}
+    void LoseCoins(int amount) {
+        if (coins >= amount) {
+            coins -= amount;
+            cout << name << " loses " << amount << " coins! Remaining coins: " << coins << endl;
+        }
+        else {
+            cout << name << " doesn't have enough coins to lose!" << endl;
+        }
+    }
+};
 
-}
+class Slime : public Pawn, public IMonster {
+private:
+    int id = PawnId::SLIME;
+    string name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    BaseAbility ba = { 50, 5 };
 
-void BattleManager::EndBattle(const string& message)
-{
-	const Character* character = battle->GetCharacter();
+public:
+    Slime(int _level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
 
-	system("cls");
-	cout << "==========================================================" << endl;
-	cout << "| " << message << endl;
-	cout << "==========================================================" << endl;
-	Sleep(2000);
+    void Attack() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½å¹°ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½!" << endl;
+    }
 
-	delete battle;	// Battle ¹× Monster ¸Þ¸ð¸® ÇØÁ¦
-}
+    void TakeDamage(int damage) override {
+        SetHealth(GetHealth() - damage);
+        cout << GetName() << " takes " << damage << " damage. Health: " << GetHealth() << endl;
+        if (GetHealth() <= 0) {
+            Die();
+        }
+    }
 
-int BattleManager::GetBattleLevel() const
-{
-	return battleLevel;
-}
+    void Die() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ê·¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Ë¾Æºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½ï¿½." << endl;
+    }
+};
 
-void BattleManager::SetBattleLevel(int battleLevel)
-{
-	this->battleLevel = battleLevel;
-}
+class Troll : public Pawn, public IMonster {
+private:
+    int id = PawnId::TROLL;
+    string name = "Æ®ï¿½ï¿½";
+    BaseAbility ba = { 120, 20 };
+
+public:
+    Troll(int _level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
+
+    void Attack() override {
+        cout << GetName() << " Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ì·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½!" << endl;
+    }
+
+    void TakeDamage(int damage) override {
+        SetHealth(GetHealth() - damage);
+        cout << GetName() << " takes " << damage << " damage. Health: " << GetHealth() << endl;
+        if (GetHealth() <= 0) {
+            Die();
+        }
+    }
+
+    void Die() override {
+        cout << GetName() << " Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½Ò¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½." << endl;
+    }
+};
+
+class Goblin : public Pawn, public IMonster {
+private:
+    int id = PawnId::GOBLIN;
+    string name = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    BaseAbility ba = { 100, 15 };
+
+public:
+    Goblin(int _level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
+
+    void Attack() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù¾ï¿½Â´ï¿½!" << endl;
+    }
+
+    void TakeDamage(int damage) override {
+        SetHealth(GetHealth() - damage);
+        cout << GetName() << " takes " << damage << " damage. Health: " << GetHealth() << endl;
+        if (GetHealth() <= 0) {
+            Die();
+        }
+    }
+
+    void Die() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´Â´ï¿½." << endl;
+    }
+};
+
+class Orc : public Pawn, public IMonster {
+private:
+    int id = PawnId::ORC;
+    string name = "ï¿½ï¿½Å©";
+    BaseAbility ba = { 150, 25 };
+
+public:
+    Orc(int _level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
+
+    void Attack() override {
+        cout << GetName() << " ï¿½ï¿½Å©ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½Ì²ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ´ï¿½!" << endl;
+    }
+
+    void TakeDamage(int damage) override {
+        SetHealth(GetHealth() - damage);
+        cout << GetName() << " takes " << damage << " damage. Health: " << GetHealth() << endl;
+        if (GetHealth() <= 0) {
+            Die();
+        }
+    }
+
+    void Die() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ ï¿½Å´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½Ì»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ñ´ï¿½." << endl;
+    }
+};
+
+class Human : public Pawn, public IMonster {
+private:
+    int id = PawnId::HUMAN;
+    string name = "ï¿½Î°ï¿½";
+    BaseAbility ba = { 120, 20 };
+
+public:
+    Human(int _level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
+
+    void Attack() override {
+        cout << GetName() << " ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Î°ï¿½ï¿½ï¿½ ï¿½ï¿½Å¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ÖµÎ¸ï¿½ï¿½ï¿½!" << endl;
+    }
+
+    void TakeDamage(int damage) override {
+        SetHealth(GetHealth() - damage);
+        cout << GetName() << " takes " << damage << " damage. Health: " << GetHealth() << endl;
+        if (GetHealth() <= 0) {
+            Die();
+        }
+    }
+
+    void Die() override {
+        cout << GetName() << " ï¿½×´ï¿½ ï¿½×¾ï¿½ï¿½ï¿½." << endl;
+    }
+};
+
+class GoldenGoblin : public Goblin {
+private:
+    int id = PawnId::GOBLIN;
+    string name = "È²ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+    BaseAbility ba = { 200, 30 };
+
+    int turnCount = 0;
+
+public:
+    GoldenGoblin(int _level) : Goblin(_level) {
+        SetLevel(_level);
+        SetHealth(ba.health);
+        SetAttack(ba.attack);
+        SetName(name);
+    }
+
+    bool Escape(Player& player) {
+        if (turnCount >= 3) {
+            cout << name << " È²ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´Â°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½." << endl;
+            int coinLoss = rand() % 20 + 1;
+            player.LoseCoins(coinLoss);
+            return true;
+        }
+        return false;
+    }
+
+    void Attack() override {
+        cout << name << " È²ï¿½Ý°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å»ï¿½Ï·ï¿½ ï¿½Ñ´ï¿½!" << endl;
+

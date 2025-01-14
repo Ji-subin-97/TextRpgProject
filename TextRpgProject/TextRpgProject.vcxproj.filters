@@ -134,17 +134,5 @@
     <ClInclude Include="Monster.h">
       <Filter>헤더 파일\Monster</Filter>
     </ClInclude>
-    <ClInclude Include="MonsterManager.h">
-      <Filter>헤더 파일\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="MonsterType.h">
-      <Filter>헤더 파일\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Goblin.h">
-      <Filter>헤더 파일\Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>헤더 파일\Monster</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

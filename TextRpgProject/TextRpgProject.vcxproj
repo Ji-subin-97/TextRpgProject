@@ -151,16 +151,12 @@
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="CharacterObserver.h" />
     <ClInclude Include="GameManager.h" />
-    <ClInclude Include="Goblin.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="Monster.h" />
-    <ClInclude Include="MonsterManager.h" />
-    <ClInclude Include="MonsterType.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillManager.h" />
-    <ClInclude Include="Slime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
