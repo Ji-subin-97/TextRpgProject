@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Singleton.h"
+#include "SingleTon.h"
 #include "Pawn.h"
 #include "struct.h"
 
 // 各 积己 包府 努贰胶
-class FactoryManager : public Singleton<FactoryManager>
+class FactoryManager : public SingleTon<FactoryManager>
 {
 private:
-    friend class Singleton<FactoryManager>;
+    friend class SingleTon<FactoryManager>;
     FactoryManager() = default;
 public:
     Pawn* GeneratePawn(PawnId id, int level);

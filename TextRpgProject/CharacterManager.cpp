@@ -1,9 +1,15 @@
 #include <iostream>
 #define NOMINMAX
+#define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include <algorithm>
+#include <format>
 #include "CharacterManager.h"
 #include "Random.h"
+#include "LogBox.h"
+#include "InputBox.h"
+#include "Renderer.h"
+#include "GameMap.h"
 
 using namespace std;
 
@@ -18,19 +24,45 @@ void CharacterManager::CreateCharacter()
 		CreateRandomStat(*character);	// 처음 스텟 랜덤설정
 
 		string name = "";
-		cout << "어서오세요. 캐릭터 생성에 앞서 이름을 정해주세요." << endl;
-		cout << "입력: ";
-		getline(cin, name);
+		LogBox::GetInstance()->Print("어서오세요. 캐릭터 생성에 앞서 이름을 정해주세요.");
+		//cout << "어서오세요. 캐릭터 생성에 앞서 이름을 정해주세요." << endl;
+		//cout << "입력: ";
+		name = InputBox::GetInstance()->Input();
 
 		character->SetName(name);
-		cout << "생성하신 플레이어의 이름은 " << name << " 입니다." << endl;
-		Sleep(1500);
+		LogBox::GetInstance()->Print(format("생성하신 플레이어의 이름은 {} 입니다.", name));
+		//cout << "생성하신 플레이어의 이름은 " << name << " 입니다." << endl;
+		//Sleep(1500);
+		Renderer::GetInstance()->SelectMap((GameMap::selectStat()));
+		//Sleep(1500);
+
+		// GameMap::SelectStat() 에 있는 텍스트박스에 접근
+		Container* root = Renderer::GetInstance()->GetRootContainer();
+		TextBox* hpBody = dynamic_cast<TextBox*>(root->FindObject(11));
+		TextBox* mpBody = dynamic_cast<TextBox*>(root->FindObject(12));
+		TextBox* strBody = dynamic_cast<TextBox*>(root->FindObject(13));
+		TextBox* dexBody = dynamic_cast<TextBox*>(root->FindObject(14));
+		TextBox* intBody = dynamic_cast<TextBox*>(root->FindObject(15));
+		TextBox* lukBody = dynamic_cast<TextBox*>(root->FindObject(16));
 
 		while (!isComplete)
 		{
 			int choice = 0;
 
-			system("cls");
+			LogBox::GetInstance()->Print("캐릭터의 기본 스텟을 정해주세요.");
+			LogBox::GetInstance()->Print("플레이어 스텟이 마음에 드시면 완료, 아니면 재설정을 선택해주세요.");
+			LogBox::GetInstance()->Print("1. 완료");
+			LogBox::GetInstance()->Print("2. 재설정");
+			// 텍스트박스에 스탯 연결
+			hpBody->SetText(to_string(character->GetCharacterStat().HP));
+			mpBody->SetText(to_string(character->GetCharacterStat().MP));
+			strBody->SetText(to_string(character->GetCharacterStat().STR));
+			dexBody->SetText(to_string(character->GetCharacterStat().DEX));
+			intBody->SetText(to_string(character->GetCharacterStat().INT));
+			lukBody->SetText(to_string(character->GetCharacterStat().LUK));
+			//원래는 프레임마다 렌더링할 수 있게 해야하는데, 시간없어서 못 만들고 일일이 수동으로 렌더링해야함
+			Renderer::GetInstance()->Render();
+			/*
 			cout << "캐릭터의 기본 스텟을 정해주세요." << endl;
 			cout << "================================" << endl;
 			cout << "HP: " << character->GetCharacterStat().HP << endl;
@@ -46,7 +78,22 @@ void CharacterManager::CreateCharacter()
 			cout << "2. 재설정" << endl;
 			cout << "선택: ";
 			cin >> choice;
+			*/
 
+			try
+			{
+				choice = stoi(InputBox::GetInstance()->Input());
+			}
+			catch (const std::invalid_argument& e)
+			{
+				LogBox::GetInstance()->Print("유효하지 않은 숫자 형식입니다.", RGB(255,0,0));
+			}
+			catch (...)
+			{
+				LogBox::GetInstance()->Print("알 수 없는 오류가 발생했습니다.", RGB(255, 0, 0));
+			}
+
+			/*
 			if (cin.fail())
 			{
 				cout << "숫자만 입력가능합니다." << endl;
@@ -55,10 +102,12 @@ void CharacterManager::CreateCharacter()
 
 				continue;
 			}
+			*/
 
 			if (choice == 1)
 			{
-				cout << "캐릭터 설정이 완료되었습니다. 캐릭터를 생성합니다." << endl;
+				LogBox::GetInstance()->Print("캐릭터 설정이 완료되었습니다. 캐릭터를 생성합니다.");
+				//cout << "캐릭터 설정이 완료되었습니다. 캐릭터를 생성합니다." << endl;
 				Sleep(2000);
 				isComplete = true;
 			}
@@ -68,7 +117,8 @@ void CharacterManager::CreateCharacter()
 			}
 			else
 			{
-				cout << "잘못된 입력입니다." << endl;
+				LogBox::GetInstance()->Print("잘못된 입력입니다.", RGB(255, 0, 0));
+				//cout << "잘못된 입력입니다." << endl;
 				continue;
 			}
 
@@ -79,7 +129,8 @@ void CharacterManager::CreateCharacter()
 	}
 	else
 	{
-		cout << "캐릭터 생성에 실패하였습니다. 관리자에게 문의해주세요." << endl;
+		LogBox::GetInstance()->Print("캐릭터 생성에 실패하였습니다. 관리자에게 문의해주세요.", RGB(255, 0, 0));
+		//cout << "캐릭터 생성에 실패하였습니다. 관리자에게 문의해주세요." << endl;
 	}
 
 }
@@ -89,7 +140,8 @@ Character* CharacterManager::GetCharacter()
 	Character* character = Character::GetInstance();
 
 	if (character == nullptr) {
-		cout << "캐릭터가 존재하지않습니다." << endl;
+		//cout << "캐릭터가 존재하지않습니다." << endl;
+		LogBox::GetInstance()->Print("캐릭터가 존재하지않습니다.", RGB(255, 0, 0));
 	}
 
 	return character;

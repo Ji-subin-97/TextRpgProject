@@ -36,23 +36,11 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="TradeManager.cpp">
-      <Filter>매니저</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerManager.cpp">
-      <Filter>매니저</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager.cpp">
-      <Filter>매니저</Filter>
-    </ClCompile>
-    <ClCompile Include="FactoryManager.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
     <ClCompile Include="BattleManager.cpp">
       <Filter>매니저</Filter>
-    </ClCompile>
-    <ClCompile Include="Singleton.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>엔티티</Filter>
@@ -77,9 +65,6 @@
     </ClCompile>
     <ClCompile Include="Troll.cpp">
       <Filter>엔티티</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>유저인터페이스</Filter>
@@ -108,18 +93,48 @@
     <ClCompile Include="GameMap.cpp">
       <Filter>맵</Filter>
     </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="FireBall.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IceStorm.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Mateor.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sparata.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="InputBox.cpp">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClCompile>
+    <ClCompile Include="LogBox.cpp">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterObserver.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
-      <Filter>매니저</Filter>
-    </ClInclude>
-    <ClInclude Include="TradeManager.h">
-      <Filter>매니저</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerManager.h">
-      <Filter>매니저</Filter>
-    </ClInclude>
-    <ClInclude Include="FactoryManager.h">
       <Filter>매니저</Filter>
     </ClInclude>
     <ClInclude Include="BattleManager.h">
@@ -137,9 +152,6 @@
     <ClInclude Include="Pawn.h">
       <Filter>엔티티</Filter>
     </ClInclude>
-    <ClInclude Include="struct.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Goblin.h">
       <Filter>엔티티</Filter>
     </ClInclude>
@@ -154,9 +166,6 @@
     </ClInclude>
     <ClInclude Include="Troll.h">
       <Filter>엔티티</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Cursor.h">
       <Filter>유저인터페이스</Filter>
@@ -187,6 +196,42 @@
     </ClInclude>
     <ClInclude Include="GameMap.h">
       <Filter>맵</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterType.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="InputBox.h">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClInclude>
+    <ClInclude Include="LogBox.h">
+      <Filter>유저인터페이스\박스</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterObserver.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillManager.h">
+      <Filter>매니저</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
