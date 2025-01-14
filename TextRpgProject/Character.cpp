@@ -20,7 +20,7 @@ void Character::Init()
 	experienceCapacity = 50;
 	gold = 0;
 
-	damageReduction = 0.0;
+	damageReduction = 0;
 	accuracy = 50.0;
 	skillEnhancement = 0.0;
 	criticalChance = 0.0;
@@ -98,7 +98,7 @@ int Character::GetGold() const
 	return gold;
 }
 
-double Character::GetDamageReduction() const
+int Character::GetDamageReduction() const
 {
 	return damageReduction;
 }
@@ -184,7 +184,7 @@ void Character::SetGold(int _gold)
 	gold = _gold;
 }
 
-void Character::SetDamageReduction(double _damageReduction)
+void Character::SetDamageReduction(int _damageReduction)
 {
 	damageReduction = _damageReduction;
 }
@@ -262,8 +262,8 @@ int Character::CharacterAttack()
 
 void Character::TakeDamage(int damage)
 {
-	// 데미지 계산: HP - (피해 감소율 * 데미지)
-	damage = static_cast<int>(damage * (damageReduction / 100));
+	// 데미지 계산: HP - (데미지 - 피해감소율) 단 0 미만 X
+	damage = damage - damageReduction < 0 ? 0 : damage - damageReduction;
 	cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
 	hp -= damage;
 }
@@ -271,10 +271,25 @@ void Character::TakeDamage(int damage)
 void Character::TakeExp(int exp)
 {
 	experience += exp;
-	if (experience > experienceCapacity)
+	if (experience >= experienceCapacity)
 	{
 		CharacterLevelUp();
 	}
+}
+
+void Character::TakeGold(int gold)
+{
+	this->gold += gold;
+}
+
+bool Character::IsDead()
+{
+	if (hp <= 0)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 // 스킬관련 ===========================================================================================
@@ -288,7 +303,6 @@ void Character::PrintSkillList()
 		cout << "[ " << index << " ] " << item->GetSkillName() << " / 데미지: " << item->GetDamage() << " / 소비마나: " << item->GetMp() << endl;
 		index++;
 	}
-	Sleep(1000);
 }
 
 void Character::TakeSkill(unique_ptr<Skill> skill)
@@ -297,12 +311,12 @@ void Character::TakeSkill(unique_ptr<Skill> skill)
 
 	if (skillInventory.size() >= 3) {
 		cout << "더이상 스킬을 얻을 수 없습니다." << endl;
-		Sleep(1000);
+		Sleep(2000);
 	}
 
 	skillInventory.push_back(move(skill));
 
-	Sleep(1000);
+	Sleep(2000);
 }
 
 int Character::UseSkill()
@@ -312,7 +326,17 @@ int Character::UseSkill()
 
 	while (true)
 	{
+		// 사용할 스킬이 없을경우
+		if (skillInventory.size() == 0)
+		{
+			cout << "현재 사용할 수 있는 스킬이 없습니다." << endl;
+			Sleep(1000);
+
+			return -1;
+		}
+
 		PrintSkillList();
+		cout << "[ 0 ] 사용안함." << endl;
 		cout << "사용하실 스킬을 선택해주세요." << endl;
 		cout << "선택: ";
 		cin >> choice;
@@ -326,10 +350,23 @@ int Character::UseSkill()
 			continue;
 		}
 
+		// 사용안함 눌렀을시 -1 리턴
+		if (choice == 0)
+		{
+			return -1;
+		}
+
 		const unique_ptr<Skill>& skill = skillInventory[choice - 1];
 
 		if (skill != nullptr)
 		{
+			// 스킬소모마나가 MP보다 클시 사용불가
+			if (mp < skill->GetMp())
+			{
+				cout << "스킬에 필요한 마나가 부족합니다." << endl;
+				break;
+			}
+
 			damage = skill->GetDamage() + static_cast<int>(skill->GetDamage() * skillEnhancement / 100);
 			cout << "[ " << name << " ] 님의 " << skill->GetSkillName() << "!" << endl;
 			mp -= skill->GetMp();

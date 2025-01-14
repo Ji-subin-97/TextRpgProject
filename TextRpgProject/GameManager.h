@@ -12,4 +12,5 @@ public:
 	void CreateCharacter();			// 플레이어 생성
 	bool Main();					// 메인화면
 	void Battle();					// 전투화면
+	void EndGame();					// 게임종료
 };

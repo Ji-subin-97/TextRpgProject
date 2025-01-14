@@ -36,7 +36,7 @@ private:
 	int experienceCapacity;				// 경험치 통
 	int gold;							// 골드
 
-	double damageReduction;				// 피해감소 STR
+	int damageReduction;				// 피해감소 STR
 	double accuracy;					// 명중률 DEX
 	double skillEnhancement;			// 스킬강화 INT
 	double criticalChance;				// 치명타확률 LUK
@@ -69,7 +69,7 @@ public:
 	int GetExperience() const;
 	int GetExperienceCapacity() const;
 	int GetGold() const;
-	double GetDamageReduction() const;
+	int GetDamageReduction() const;
 	double GetAccuracy() const;
 	double GetSkillEnhancement() const;
 	double GetCriticalChance() const;
@@ -87,7 +87,7 @@ public:
 	void SetExperience(int _experience);
 	void SetExperienceCapacity(int _expCapacity);
 	void SetGold(int _gold);
-	void SetDamageReduction(double _damageReduction);
+	void SetDamageReduction(int _damageReduction);
 	void SetAccuracy(double _accuracy);
 	void SetSkillEnhancement(double _skillEnhancement);
 	void SetCriticalChance(double _criticalChance);
@@ -101,8 +101,12 @@ public:
 	
 	void TakeDamage(int damage);				// 데미지입음
 	void TakeExp(int exp);						// 경험치얻음
+	void TakeGold(int gold);					// 골드얻음
+	
+	bool IsDead();								// 캐릭터 죽음여부
 
 	// 아이템관련
+	// void PrintItemList();					// 캐릭터가 현재가지고있는 아이템 목록
 	// void TakeItem(Item item);				// 아이템 얻기
 	// void UseItem();							// 아이템 사용
 

@@ -215,7 +215,7 @@ void CharacterManager::PrintCharacterInfoAll()
 		cout << " * MP: " << character->GetMp() << " / " << character->GetMaxMp() << endl;
 		cout << " * 공격력: " << character->GetAttack() << endl;
 		PrintCharacterInfoStat(character->GetCharacterStat());
-		cout << " * 방어율: " << character->GetDamageReduction() << " %" << endl;
+		cout << " * 방어: " << character->GetDamageReduction() << endl;
 		cout << " * 명중률: " << character->GetAccuracy() << " %" << endl;
 		cout << " * 스킬데미지증가율: " << character->GetSkillEnhancement() << " %" << endl;
 		cout << " * 치명타율: " << character->GetCriticalChance() << " %" << endl;
@@ -401,7 +401,7 @@ void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사�
 	}
 
 	// 만약 경험치가 음수이면 0으로 초기화
-	if (character->GetExperience())
+	if (character->GetExperience() < 0)
 	{
 		character->SetExperience(0);
 	}

@@ -55,9 +55,10 @@ bool GameManager::Main()
 	int choice = 0;
 
 	cout << "\n1. 전투" << endl;
-	cout << "2. 인벤토리" << endl;
-	cout << "3. 상점" << endl;
-	cout << "4. 종료" << endl;
+	cout << "2. 캐릭터 스텟관리" << endl;
+	cout << "3. 인벤토리" << endl;
+	cout << "4. 상점" << endl;
+	cout << "5. 종료" << endl;
 
 	cout << "\n행동 선택: ";
 	cin >> choice;
@@ -77,11 +78,14 @@ bool GameManager::Main()
 		Battle();
 		break;
 	case 2:
+		characterManager->SetCharacterStat();
 		break;
 	case 3:
 		break;
 	case 4:
-		cout << "게임을 종료합니다." << endl;
+		break;
+	case 5:
+		EndGame();
 		return false;
 		break;
 	default:
@@ -89,7 +93,6 @@ bool GameManager::Main()
 		return true;
 		break;
 	}
-
 
 	return true;
 }
@@ -172,5 +175,15 @@ void GameManager::Battle()
 			break;
 		}
 	}
+}
+
+void GameManager::EndGame()
+{
+	cout << "게임을 종료합니다." << endl;
+
+	skillManager->DeleteInstance();
+	characterManager->DeleteInstance();
+	battleManager->DeleteInstance();
+	this->DeleteInstance();
 }
 
