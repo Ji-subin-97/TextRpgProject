@@ -8,8 +8,8 @@ Human::Human(int playerLevel) {
 	name = "¿Œ∞£";
 	isBoss = false;
 
-	int healthBase = GetIntToRandom(60, 70);
-	int attackBase = GetIntToRandom(20, 30);
+	int healthBase = GetIntToRandom(40, 50);
+	int attackBase = GetIntToRandom(10, 20);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }

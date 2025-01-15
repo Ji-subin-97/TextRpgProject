@@ -8,7 +8,7 @@ Goblin::Goblin(int playerLevel) {
 	name = "°íºí¸°";
 	isBoss = false;
 
-	int healthBase = GetIntToRandom(20, 30);
+	int healthBase = GetIntToRandom(10, 20);
 	int attackBase = GetIntToRandom(3, 5);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;

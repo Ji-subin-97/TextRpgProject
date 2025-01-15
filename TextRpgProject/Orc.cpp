@@ -8,8 +8,8 @@ Orc::Orc(int playerLevel) {
 	name = "ø¿≈©";
 	isBoss = false;
 
-	int healthBase = GetIntToRandom(30, 50);
-	int attackBase = GetIntToRandom(5, 10);
+	int healthBase = GetIntToRandom(20, 30);
+	int attackBase = GetIntToRandom(5, 7);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }
