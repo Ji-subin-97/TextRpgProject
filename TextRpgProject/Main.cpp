@@ -1,25 +1,27 @@
 #include <iostream>
-
+#include <crtdbg.h>
+#include "GameManager.h"
 using namespace std;
 
 int main()
 {
-	/* 1. 캐릭터 생성 및 관리
-	*  2. 레벨업
-	*  3. 전투 시스템
-	*  4. 몬스터
-	*  5. 아이템 및 골드 관리
-	*  6. 로그
-	*/
-	cout << "Sparata Project" << endl;
-	
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+	bool isGameRun = true;		// 게임실행여부 확인용
+
+	GameManager* gameManager = GameManager::GetInstance();
+
+	// 초기세팅
+	gameManager->Init();
+
 	// 캐릭터 생성
+	gameManager->CreateCharacter();
 
-	// 생성 후 바로 전투시작
-
-	// 캐릭터 HP 0 OR 특정 이벤트시 엔딩
-
-	// 도전기능 : 상점, 보스
+	// 메인화면
+	while (isGameRun)
+	{
+		isGameRun = gameManager->Main();
+	}
 
 	return 0;
 }
