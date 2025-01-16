@@ -7,6 +7,11 @@ Object::Object()
 Object::~Object()
 {
 }
+void Object::LoadFromTxt(string path)
+{
+	vector<string> body = Util::ReadText(path);
+	SetBody(body);
+}
 void Object::move(Pos value)
 {
 	this->SetPos(this->GetPos() + value);
@@ -29,9 +34,9 @@ void Object::UpdateSize(int width, int height)
 {
 	size = Pos(width, height);
 }
-void Object::SetColor(RGB color)
+void Object::SetColor(RGB _color)
 {
-	color = color;
+	color = _color;
 }
 void Object::SetColor(uInt8 r, uInt8 g, uInt8 b)
 {
@@ -89,8 +94,3 @@ Object* Object::GetParent() const
 {
 	return parent;
 }
-//void Object::load_from_txt(string filename)
-//{
-//	vector<string> body = util::read_text(filename);
-//	set_body(body);
-//}

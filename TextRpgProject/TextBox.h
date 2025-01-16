@@ -12,6 +12,7 @@ public:
 	TextBox();
 	TextBox(const string& _text);
 	void SetText(const string& _text);
+	string GetText() const;
 	void Erase();
 };
 

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Orc.h"
 #include "Random.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ Orc::Orc(int playerLevel) {
 
 int Orc::MonsterAttack()
 {
-	cout << "오크는 거대한 방망이로 내려쳤다." << endl;
+	LogBox::GetInstance()->Print("오크는 거대한 방망이로 내려쳤다.");
+	//cout << "오크는 거대한 방망이로 내려쳤다." << endl;
 
 	return attack;
 }
@@ -38,7 +40,8 @@ int Orc::DropGold()
 
 void Orc::Die()
 {
-	cout << "오크는 더이상 소리내지 않는다." << endl;
+	LogBox::GetInstance()->Print("오크는 더이상 소리내지 않는다.");
+	//cout << "오크는 더이상 소리내지 않는다." << endl;
 }
 
 bool Orc::IsBoss()

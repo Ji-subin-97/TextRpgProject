@@ -42,7 +42,7 @@ bool Util::DoesPassProbability(int percent)
 vector<string> Util::ReadText(const string& filename)
 {
     // txt 파일 경로
-    string path = ".\\asset\\" + filename + ".txt";
+    string path = filename + ".txt";
     ifstream file(path);
 
     // 파일이 열리지 않으면 에러 텍스트 반환

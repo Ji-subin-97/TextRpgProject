@@ -11,6 +11,7 @@ private:
     string AddBorderPiece(const string& text) const override;
 public:
     string Input();
+    int InputNumber();
     void Erase();
 };
 

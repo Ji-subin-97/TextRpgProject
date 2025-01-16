@@ -21,10 +21,10 @@ public:
     Box(Pos pos);
     void SetSize(int _width, int _height);
     void SetSize(Pos size);
-    void ExpendWidth(int value);
-    void ExpendHeight(int value);
+    void ExpandWidth(int value);
+    void ExpandHeight(int value);
     //테두리 조절
-    void SetPadding(int value);
+    //void SetPadding(int value);
     //void SetMargin(int value);
     void SetBorder(Border _border);
     void SetBorderOnce(char style);

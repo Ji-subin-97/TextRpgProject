@@ -23,7 +23,7 @@ protected:
 public:
 	Object();
 	virtual ~Object();
-	//virtual void LoadFromTxt(string path) = 0;
+	void LoadFromTxt(string txtFileName);
 	void move(Pos value);
 	void move(int x, int y);
 	void SetColor(RGB _color);

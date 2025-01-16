@@ -3,6 +3,7 @@
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include <algorithm>
+#include <string>
 #include <format>
 #include "CharacterManager.h"
 #include "Random.h"
@@ -30,20 +31,15 @@ void CharacterManager::CreateCharacter()
 		name = InputBox::GetInstance()->Input();
 
 		character->SetName(name);
-		LogBox::GetInstance()->Print(format("생성하신 플레이어의 이름은 {} 입니다.", name));
-		//cout << "생성하신 플레이어의 이름은 " << name << " 입니다." << endl;
-		//Sleep(1500);
-		Renderer::GetInstance()->SelectMap((GameMap::selectStat()));
-		//Sleep(1500);
 
-		// GameMap::SelectStat() 에 있는 텍스트박스에 접근
-		Container* root = Renderer::GetInstance()->GetRootContainer();
-		TextBox* hpBody = dynamic_cast<TextBox*>(root->FindObject(11));
-		TextBox* mpBody = dynamic_cast<TextBox*>(root->FindObject(12));
-		TextBox* strBody = dynamic_cast<TextBox*>(root->FindObject(13));
-		TextBox* dexBody = dynamic_cast<TextBox*>(root->FindObject(14));
-		TextBox* intBody = dynamic_cast<TextBox*>(root->FindObject(15));
-		TextBox* lukBody = dynamic_cast<TextBox*>(root->FindObject(16));
+		Renderer::GetInstance()->SelectMap((GameMap::SelectStat()));
+		//cout << "생성하신 플레이어의 이름은 " << name << " 입니다." << endl;
+		Sleep(1500);
+		LogBox::GetInstance()->Print(format("생성하신 플레이어의 이름은 {} 입니다.", name));
+		Sleep(1500);
+
+		Renderer::GetInstance()->EditText(20, name);
+		Renderer::GetInstance()->ExpandText(20, 1, 0);
 
 		while (!isComplete)
 		{
@@ -53,15 +49,14 @@ void CharacterManager::CreateCharacter()
 			LogBox::GetInstance()->Print("플레이어 스텟이 마음에 드시면 완료, 아니면 재설정을 선택해주세요.");
 			LogBox::GetInstance()->Print("1. 완료");
 			LogBox::GetInstance()->Print("2. 재설정");
-			// 텍스트박스에 스탯 연결
-			hpBody->SetText(to_string(character->GetCharacterStat().HP));
-			mpBody->SetText(to_string(character->GetCharacterStat().MP));
-			strBody->SetText(to_string(character->GetCharacterStat().STR));
-			dexBody->SetText(to_string(character->GetCharacterStat().DEX));
-			intBody->SetText(to_string(character->GetCharacterStat().INT));
-			lukBody->SetText(to_string(character->GetCharacterStat().LUK));
-			//원래는 프레임마다 렌더링할 수 있게 해야하는데, 시간없어서 못 만들고 일일이 수동으로 렌더링해야함
-			Renderer::GetInstance()->Render();
+			// 첫번째 인수 : 오브젝트 ID, 두번째 인수 : 새로 렌더링할 텍스트
+			Renderer::GetInstance()->EditText(11, character->GetCharacterStat().HP);
+			Renderer::GetInstance()->EditText(12, character->GetCharacterStat().MP);
+			Renderer::GetInstance()->EditText(13, character->GetCharacterStat().STR);
+			Renderer::GetInstance()->EditText(14, character->GetCharacterStat().DEX);
+			Renderer::GetInstance()->EditText(15, character->GetCharacterStat().INT);
+			Renderer::GetInstance()->EditText(16, character->GetCharacterStat().LUK);
+
 			/*
 			cout << "캐릭터의 기본 스텟을 정해주세요." << endl;
 			cout << "================================" << endl;
@@ -80,18 +75,7 @@ void CharacterManager::CreateCharacter()
 			cin >> choice;
 			*/
 
-			try
-			{
-				choice = stoi(InputBox::GetInstance()->Input());
-			}
-			catch (const std::invalid_argument& e)
-			{
-				LogBox::GetInstance()->Print("유효하지 않은 숫자 형식입니다.", RGB(255,0,0));
-			}
-			catch (...)
-			{
-				LogBox::GetInstance()->Print("알 수 없는 오류가 발생했습니다.", RGB(255, 0, 0));
-			}
+			choice = InputBox::GetInstance()->InputNumber();
 
 			/*
 			if (cin.fail())
@@ -113,10 +97,12 @@ void CharacterManager::CreateCharacter()
 			}
 			else if (choice == 2)
 			{
+				LogBox::GetInstance()->Clear();
 				CreateRandomStat(*character);
 			}
 			else
 			{
+				LogBox::GetInstance()->Clear();
 				LogBox::GetInstance()->Print("잘못된 입력입니다.", RGB(255, 0, 0));
 				//cout << "잘못된 입력입니다." << endl;
 				continue;
@@ -205,7 +191,7 @@ void CharacterManager::GenerateCharacter(Character& character, bool isFirst)
 void CharacterManager::PrintCharacterInfoAll()
 {
 	Character* character = Character::GetInstance();
-	system("cls");
+	//system("cls");
 	if (character != nullptr)
 	{
 		cout << "\n====================================================================" << endl;
@@ -360,6 +346,7 @@ void CharacterManager::SetCharacterStat()
 			}
 
 		}
+		Renderer::GetInstance()->RenderAll();
 	}
 
 }
@@ -371,7 +358,7 @@ void CharacterManager::SetCharacterStatAfterLevelUp()
 	system("cls");
 	cout << "축하드립니다 캐릭터가 " << character->GetLevel() << " LV 으로 레벨업하였습니다!" << endl;
 	cout << "잠시후 스탯관리창으로 넘어갑니다." << endl;
-	Sleep(3000); 
+	Sleep(2000); 
 
 	SetCharacterStat();
 	// 캐릭터 스텟 레벨업 후로 재설정 후 회복 및 경험치 수정
@@ -406,6 +393,34 @@ void CharacterManager::SetCharacterExp(int caseNum) // caseNum 1: 레벨업, 2: 사�
 		character->SetExperience(0);
 	}
 
+}
+
+unordered_map<string, string> CharacterManager::GetCharacterStat() const
+{
+	Character* character = Character::GetInstance();
+	CharacterStat ability = character->GetCharacterStat();
+	unordered_map<string, string> stat;
+
+	stat["level"] = to_string(character->GetLevel());
+	stat["hp"] = to_string(character->GetHp());
+	stat["maxHp"] = to_string(character->GetMaxHp());
+	stat["mp"] = to_string(character->GetMp());
+	stat["maxMp"] = to_string(character->GetMaxMp());
+	stat["attack"] = to_string(character->GetAttack());
+	stat["exp"] = to_string(character->GetExperience());
+	stat["maxExp"] = to_string(character->GetExperienceCapacity());
+	stat["gold"] = to_string(character->GetGold());
+	stat["damageReduction"] = to_string(character->GetDamageReduction());
+	stat["accuracy"] = to_string(static_cast<int>(character->GetAccuracy()));
+	stat["skillEnhancement"] = to_string(static_cast<int>(character->GetSkillEnhancement()));
+	stat["criticalChance"] = to_string(static_cast<int>(character->GetCriticalChance()));
+	stat["name"] = character->GetName();
+	stat["str"] = to_string(ability.STR);
+	stat["dex"] = to_string(ability.DEX);
+	stat["int"] = to_string(ability.INT);
+	stat["luk"] = to_string(ability.LUK);
+
+	return stat;
 }
 
 // ============================= 스킬 관련 =======================================

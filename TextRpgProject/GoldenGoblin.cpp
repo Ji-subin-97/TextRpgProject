@@ -1,6 +1,7 @@
 #include <iostream>
 #include "GoldenGoblin.h"
 #include "Random.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ GoldenGoblin::GoldenGoblin(int playerLevel) {
 
 int GoldenGoblin::MonsterAttack()
 {
-	cout << "황금 고블린은 당신의 아이템을 노리고있다. " << endl;
+	LogBox::GetInstance()->Print("황금 고블린은 당신의 아이템을 노리고있다.");
+	//cout << "황금 고블린은 당신의 아이템을 노리고있다. " << endl;
 
 	return attack;
 }
@@ -38,7 +40,8 @@ int GoldenGoblin::DropGold()
 
 void GoldenGoblin::Die()
 {
-	cout << "고블린은 더이상 심장이 뛰지 않는다." << endl;
+	LogBox::GetInstance()->Print("고블린은 더이상 심장이 뛰지 않는다.");
+	//cout << "고블린은 더이상 심장이 뛰지 않는다." << endl;
 }
 
 bool GoldenGoblin::IsBoss()

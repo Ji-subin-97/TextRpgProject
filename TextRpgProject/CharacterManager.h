@@ -2,6 +2,10 @@
 #include "SingleTon.h"
 #include "Character.h"
 #include "SkillManager.h"
+#include <unordered_map>
+#include <string>
+
+using namespace std;
 
 class CharacterManager : public SingleTon<CharacterManager>
 {
@@ -24,6 +28,9 @@ public:
 	void SetCharacterStat();							// 캐릭터의 스텟관리창
 	void SetCharacterStatAfterLevelUp();				// 캐릭터 레벨업 후 스텟관리(레벨업 이벤트 발생 시)
 	void SetCharacterExp(int caseNum);					// 캐릭터 레벨수치 관리
+
+	// 캐릭터 능력지 반환
+	unordered_map<string, string> GetCharacterStat() const;
 
 	// 캐릭터 스킬관련
 	void CharacterGetSkill();							// 캐릭터 스킬획득

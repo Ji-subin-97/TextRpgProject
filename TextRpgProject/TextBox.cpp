@@ -76,6 +76,11 @@ void TextBox::SetText(const string& _text)
     AddBorder();
 }
 
+string TextBox::GetText() const
+{
+    return this->text;
+}
+
 void TextBox::Erase()
 {
     Pos pos = ++this->GetPos();
