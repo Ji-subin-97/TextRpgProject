@@ -327,7 +327,7 @@ int Character::UseItem()
 		{
 			cout << "현재 보유하고 있는 아이템이 없습니다." << endl;
 			Sleep(1500);
-			break;
+			return -1;
 		}
 
 		PrintItemList();

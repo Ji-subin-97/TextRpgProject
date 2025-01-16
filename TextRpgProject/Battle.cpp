@@ -51,11 +51,9 @@ bool Battle::PlayerTurn(Monster* monster)
 		else if (choice == 2)
 		{
 			int skillDamage = character->UseSkill();
-
-			if (skillDamage == -1)
-			{
-				continue;
-			}
+			if (skillDamage == -1) {
+				return false;
+			} 
 
 			cout << "==============================================" << endl;
 			monster->TakeDamage(skillDamage);
@@ -67,11 +65,11 @@ bool Battle::PlayerTurn(Monster* monster)
 		else if (choice == 3)
 		{
 			int itemUse = character->UseItem();
-
-			if (itemUse == -1)
-			{
-				continue;
+			if (itemUse == -1) {
+				return false;
 			}
+
+			break;
 		}
 		else if (choice == 4)
 		{
@@ -81,6 +79,8 @@ bool Battle::PlayerTurn(Monster* monster)
 		}
 	}
 
+	isMonsterTurn = true;	// 플레이어 행동끝나면 몬스터턴
+	isPlayerTurn = false;
 	return false;
 }
 
@@ -121,7 +121,30 @@ bool Battle::MonsterTurn(Monster* monster)
 		Sleep(1500);
 	}
 
+	isMonsterTurn = false;	// 몬스터 행동끝나면 플레이어턴
+	isPlayerTurn = true;
+
 	return false;
+}
+
+bool Battle::GetIsPlayerTurn() const
+{
+	return isPlayerTurn;
+}
+
+bool Battle::GetIsMonsterTurn() const
+{
+	return isMonsterTurn;
+}
+
+void Battle::SetIsPlayerTurn(bool b)
+{
+	isPlayerTurn = b;
+}
+
+void Battle::SetIsMonsterTurn(bool b)
+{
+	isMonsterTurn = b;
 }
 
 const Character* Battle::GetCharacter() const

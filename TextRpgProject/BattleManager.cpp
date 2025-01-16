@@ -101,18 +101,27 @@ void BattleManager::StartBattle()
 		bool isMonsterDie = false;	// i번째 몬스터 처치여부
 		if (isEndBattle || isRun) break;
 
+		// 처음 턴은 플레이어 턴 고정
+		battle->SetIsPlayerTurn(true);
+
 		while (!isEndBattle)
 		{
 			PrintBattleStatus();
-			isRun = battle->PlayerTurn(monsters[i]);
 
+			if (battle->GetIsPlayerTurn())
+			{
+				isRun = battle->PlayerTurn(monsters[i]);
+			}
 			if (isRun)
 			{
 				break;
 			}
 
-			isMonsterDie = battle->MonsterTurn(monsters[i]);
-
+			if (battle->GetIsMonsterTurn())
+			{
+				isMonsterDie = battle->MonsterTurn(monsters[i]);
+			}
+			
 			if (isMonsterDie) {
 				monsterDieCount++;
 
