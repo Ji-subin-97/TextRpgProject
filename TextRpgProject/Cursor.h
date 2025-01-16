@@ -22,6 +22,7 @@ namespace Cursor
     void SetTextColor(RGB color);
     void ResetTextColor();
     void SetBackgroundColor(BackColor color);
+    void SetBackgroundColor(RGB color);
     void ResetBackgroundColor();
     void ResetAllStyle();
     // 텍스트 스타일

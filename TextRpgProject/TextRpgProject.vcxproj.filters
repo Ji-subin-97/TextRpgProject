@@ -45,12 +45,6 @@
     <ClCompile Include="Entity.cpp">
       <Filter>엔티티</Filter>
     </ClCompile>
-    <ClCompile Include="Item.cpp">
-      <Filter>엔티티</Filter>
-    </ClCompile>
-    <ClCompile Include="Pawn.cpp">
-      <Filter>엔티티</Filter>
-    </ClCompile>
     <ClCompile Include="Goblin.cpp">
       <Filter>엔티티</Filter>
     </ClCompile>
@@ -132,6 +126,9 @@
     <ClCompile Include="SkillManager.cpp">
       <Filter>매니저</Filter>
     </ClCompile>
+    <ClCompile Include="GoldenGoblin.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameManager.h">
@@ -144,12 +141,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Entity.h">
-      <Filter>엔티티</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>엔티티</Filter>
-    </ClInclude>
-    <ClInclude Include="Pawn.h">
       <Filter>엔티티</Filter>
     </ClInclude>
     <ClInclude Include="Goblin.h">
@@ -233,5 +224,31 @@
     <ClInclude Include="SkillManager.h">
       <Filter>매니저</Filter>
     </ClInclude>
+    <ClInclude Include="GoldenGoblin.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="sword.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="potion.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="store.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="power_button.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="head.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="monster_head.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
+    <Text Include="title.txt">
+      <Filter>리소스 파일</Filter>
+    </Text>
   </ItemGroup>
 </Project>

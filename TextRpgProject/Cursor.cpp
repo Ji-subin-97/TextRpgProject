@@ -34,6 +34,7 @@ void Cursor::SetPosition(Pos pos) {
 }
 
 void Cursor::ClearScreen() {
+	SetPosition(0, 0);
 	cout << ESC << "[J";
 }
 
@@ -77,6 +78,14 @@ void Cursor::ResetTextColor()
 void Cursor::SetBackgroundColor(BackColor color)
 {
 	cout << ESC << "[" << static_cast<int>(color) << "m";
+}
+
+void Cursor::SetBackgroundColor(RGB color)
+{
+	cout << ESC << "[48;2;"
+		<< static_cast<int>(color.r) << ";"
+		<< static_cast<int>(color.g) << ";"
+		<< static_cast<int>(color.b) << "m";
 }
 
 void Cursor::ResetBackgroundColor()

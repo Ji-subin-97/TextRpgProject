@@ -1,9 +1,12 @@
 #include <iostream>
+#include <format>
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include "Character.h"
 #include "Random.h"
+#include "InputBox.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -239,7 +242,8 @@ int Character::CharacterAttack()
 	
 	if (randomScope > accuracy)
 	{
-		cout << "[ " << name << " ] 님의 공격이 빗나갔습니다!" << endl;
+		LogBox::GetInstance()->Print(format("{} 님의 공격이 빗나갔습니다!", name));
+		//cout << "[ " << name << " ] 님의 공격이 빗나갔습니다!" << endl;
 		Sleep(1000);
 		return 0;
 	}
@@ -250,10 +254,14 @@ int Character::CharacterAttack()
 	if (randomScope < criticalChance)
 	{
 		attack = static_cast<int>(attack * 1.3);
-		cout << "[ " << name << " ] 님의 공격이 " << attack  << "만큼 치명적인 데미지를 주었습니다!" << endl;
+		LogBox::GetInstance()->Print(format("{} 님의 공격이 {} 만큼 치명적인 데미지를 주었습니다!", name, attack));
+
+		//cout << "[ " << name << " ] 님의 공격이 " << attack  << "만큼 치명적인 데미지를 주었습니다!" << endl;
 	}
 	else {
-		cout << "[ " << name << " ] 님의 공격이 " << attack << "만큼 데미지를 주었습니다!" << endl;
+		LogBox::GetInstance()->Print(format("{} 님의 공격이 {} 만큼 데미지를 주었습니다!", name, attack));
+
+		//cout << "[ " << name << " ] 님의 공격이 " << attack << "만큼 데미지를 주었습니다!" << endl;
 	}
 	Sleep(1000);
 
@@ -264,7 +272,9 @@ void Character::TakeDamage(int damage)
 {
 	// 데미지 계산: HP - (데미지 - 피해감소율) 단 0 미만 X
 	damage = damage - damageReduction < 0 ? 0 : damage - damageReduction;
-	cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
+	LogBox::GetInstance()->Print(format("{} 님이 {} 만큼 데미지를 입었습니다!", name, damage));
+
+	//cout << "[ " << name << " ] 님이 " << damage << "만큼 데미지를 입었습니다!" << endl;
 	hp -= damage;
 }
 
@@ -296,21 +306,31 @@ bool Character::IsDead()
 
 void Character::PrintSkillList()
 {
-	cout << "[ " << name << " ] 님이 현재 보유하고 있는 스킬목록 입니다." << endl;
+	//cout << "[ " << name << " ] 님이 현재 보유하고 있는 스킬목록 입니다." << endl;
+	LogBox::GetInstance()->Print(format("{} 님이 현재 보유하고 있는 스킬목록 입니다.", name));
+
 	int index = 1;
 	for (const auto& item : skillInventory)
 	{
-		cout << "[ " << index << " ] " << item->GetSkillName() << " / 데미지: " << item->GetDamage() << " / 소비마나: " << item->GetMp() << endl;
+		//cout << "[ " << index << " ] " << item->GetSkillName() << " / 데미지: " << item->GetDamage() << " / 소비마나: " << item->GetMp() << endl;
+		LogBox::GetInstance()->Print
+		(
+			format("[{}] {} / 데미지: {} / 소비마나: {}",
+			index, item->GetSkillName(), item->GetDamage(), item->GetMp()
+		));
 		index++;
 	}
 }
 
 void Character::TakeSkill(unique_ptr<Skill> skill)
 {
-	cout << "[ " << name << " ] 님이 " << skill->GetSkillName() << "스킬을 얻었습니다!" << endl;
+	//cout << "[ " << name << " ] 님이 " << skill->GetSkillName() << "스킬을 얻었습니다!" << endl;
+	LogBox::GetInstance()->Print(format("{} 님이 {} 스킬을 얻었습니다!", name, skill->GetSkillName()));
 
 	if (skillInventory.size() >= 3) {
-		cout << "더이상 스킬을 얻을 수 없습니다." << endl;
+		//cout << "더이상 스킬을 얻을 수 없습니다." << endl;
+		LogBox::GetInstance()->Print(format("더이상 스킬을 얻을 수 없습니다."));
+
 		Sleep(2000);
 	}
 
@@ -329,13 +349,19 @@ int Character::UseSkill()
 		// 사용할 스킬이 없을경우
 		if (skillInventory.size() == 0)
 		{
-			cout << "현재 사용할 수 있는 스킬이 없습니다." << endl;
+			//cout << "현재 사용할 수 있는 스킬이 없습니다." << endl;
+			LogBox::GetInstance()->Print(format("현재 사용할 수 있는 스킬이 없습니다."));
+
 			Sleep(1000);
 
 			return -1;
 		}
 
 		PrintSkillList();
+		LogBox::GetInstance()->Print(format("[ 0 ] 사용안함."));
+		LogBox::GetInstance()->Print(format("사용하실 스킬을 선택해주세요."));
+		choice = InputBox::GetInstance()->InputNumber();
+		/*
 		cout << "[ 0 ] 사용안함." << endl;
 		cout << "사용하실 스킬을 선택해주세요." << endl;
 		cout << "선택: ";
@@ -349,6 +375,7 @@ int Character::UseSkill()
 
 			continue;
 		}
+		*/
 
 		// 사용안함 눌렀을시 -1 리턴
 		if (choice == 0)
@@ -363,19 +390,23 @@ int Character::UseSkill()
 			// 스킬소모마나가 MP보다 클시 사용불가
 			if (mp < skill->GetMp())
 			{
-				cout << "스킬에 필요한 마나가 부족합니다." << endl;
+				LogBox::GetInstance()->Print(format("스킬에 필요한 마나가 부족합니다."));
+				//cout << "스킬에 필요한 마나가 부족합니다." << endl;
 				break;
 			}
 
 			damage = skill->GetDamage() + static_cast<int>(skill->GetDamage() * skillEnhancement / 100);
-			cout << "[ " << name << " ] 님의 " << skill->GetSkillName() << "!" << endl;
+			//cout << "[ " << name << " ] 님의 " << skill->GetSkillName() << "!" << endl;
+			LogBox::GetInstance()->Print(format("[{}] 님의 {} !", name, skill->GetSkillName()));
 			mp -= skill->GetMp();
 
 			break;
 		}
 		else
 		{
-			cout << "스킬이 존재하지 않습니다." << endl;
+			//cout << "스킬이 존재하지 않습니다." << endl;
+			LogBox::GetInstance()->Print(format("스킬이 존재하지 않습니다."));
+
 		}
 	}
 

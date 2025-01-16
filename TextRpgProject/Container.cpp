@@ -27,11 +27,10 @@ Container::Container(Pos pos)
 }
 Container::~Container()
 {
-    for (Object* object : children) delete object;
 }
-void Container::AddObject(Object* object)
+void Container::AddObject(shared_ptr<Object> object)
 {
-    for (Object* child : children)
+    for (auto& child : children)
     {
         if (object->GetId() == child->GetId())
         {
@@ -46,25 +45,15 @@ void Container::AddObject(Object* object)
     Pos pos = this->GetPos();
     object->move(pos);
 }
-void Container::AddObject(initializer_list<Object*> objects)
+void Container::AddObject(initializer_list<shared_ptr<Object>> objects)
 {
-    for (Object* object : objects)
+    for (auto& object : objects)
     {
         AddObject(object);
     }
 }
 
-Object* Container::FindObject(int id) const
-{
-    for (Object* object : children)
-    {
-        if (id == object->GetId()) return object;
-    }
-
-    return nullptr;
-}
-
-vector<Object*> Container::GetChildren() const
+vector<shared_ptr<Object>> Container::GetChildren() const
 {
     return this->children;
 }
@@ -72,7 +61,7 @@ vector<Object*> Container::GetChildren() const
 void Container::SetPos(Pos pos)
 {
     Pos delta = pos - this->GetPos();
-    for (Object* child : children)
+    for (auto& child : children)
     {
         child->move(delta);
     }

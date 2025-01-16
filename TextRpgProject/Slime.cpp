@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Slime.h"
 #include "Random.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ Slime::Slime(int playerLevel) {
  
 int Slime::MonsterAttack()
 {
-	cout << "슬라임은 출렁거리며 돌진했다." << endl;
+	LogBox::GetInstance()->Print("슬라임은 출렁거리며 돌진했다.");
+	//cout << "슬라임은 출렁거리며 돌진했다." << endl;
 
 	return attack;
 }
@@ -38,7 +40,8 @@ int Slime::DropGold()
 
 void Slime::Die()
 {
-	cout << "슬라임은 녹아버렸다." << endl;
+	LogBox::GetInstance()->Print("슬라임은 녹아버렸다.");
+	//cout << "슬라임은 녹아버렸다." << endl;
 }
 
 bool Slime::IsBoss()

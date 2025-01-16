@@ -23,6 +23,6 @@ private:
 public:
     void Print(const string& text, RGB color = {255,255,255});
     //void Erase();
-    void clear();
-    void checkFull();
+    void Clear();
+    void CheckFull();
 };

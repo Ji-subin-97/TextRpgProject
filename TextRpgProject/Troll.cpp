@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Troll.h"
 #include "Random.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ Troll::Troll(int playerLevel) {
 
 int Troll::MonsterAttack()
 {
-	cout << "거대한 몽둥이를 이끌고 플레이어를 짓밟으려 한다." << endl;
+	//cout << "거대한 몽둥이를 이끌고 플레이어를 짓밟으려 한다." << endl;
+	LogBox::GetInstance()->Print("거대한 몽둥이를 이끌고 플레이어를 짓밟으려 한다.");
 
 	return attack;
 }
@@ -38,7 +40,8 @@ int Troll::DropGold()
 
 void Troll::Die()
 {
-	cout << "거대한 몸뚱이는 더이상 움직이지 않는다." << endl;
+	LogBox::GetInstance()->Print("거대한 몸뚱이는 더이상 움직이지 않는다.");
+	//cout << "거대한 몸뚱이는 더이상 움직이지 않는다." << endl;
 }
 
 bool Troll::IsBoss()

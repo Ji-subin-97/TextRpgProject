@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Human.h"
 #include "Random.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ Human::Human(int playerLevel) {
 
 int Human::MonsterAttack()
 {
-	cout << "검을 휘두르기 시작했다." << endl;
+	LogBox::GetInstance()->Print("검을 휘두르기 시작했다.");
+	//cout << "검을 휘두르기 시작했다." << endl;
 
 	return attack;
 }
@@ -38,7 +40,8 @@ int Human::DropGold()
 
 void Human::Die()
 {
-	cout << "그는 죽었다." << endl;
+	LogBox::GetInstance()->Print("그는 죽었다.");
+	//cout << "그는 죽었다." << endl;
 }
 
 bool Human::IsBoss()

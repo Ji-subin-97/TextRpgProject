@@ -22,14 +22,14 @@ void Box::SetSize(Pos size)
     this->AddBorder();
 }
 
-void Box::ExpendWidth(int value)
+void Box::ExpandWidth(int value)
 {
     Pos size = this->GetSize();
     size.X += value * 2;
     this->SetSize(size);
 }
 
-void Box::ExpendHeight(int value)
+void Box::ExpandHeight(int value)
 {
     Pos size = this->GetSize();
     size.Y += value * 2;

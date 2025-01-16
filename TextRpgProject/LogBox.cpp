@@ -33,7 +33,7 @@ string LogBox::AddBorderPiece(const string& text) const
 void LogBox::Print(const string& text, RGB color)
 {
     logs.push_back({text, color});
-    LogBox::checkFull();
+    LogBox::CheckFull();
     LogBox:Erase();
 
     Pos pos = ++LogBox::GetPos();
@@ -57,14 +57,14 @@ void LogBox::Print(const string& text, RGB color)
 //    }
 //}
 
-void LogBox::clear()
+void LogBox::Clear()
 {
     if (logs.empty()) return;
 
     logs.clear();
 }
 
-void LogBox::checkFull()
+void LogBox::CheckFull()
 {
     int height = LogBox::GetSize().Y - 2;
     if (logs.size() > height)

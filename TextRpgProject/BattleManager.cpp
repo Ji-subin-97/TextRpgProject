@@ -1,10 +1,17 @@
 #include <iostream>
+#include <format>
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include <iomanip>
 #include "BattleManager.h"
 #include "MonsterManager.h"
+#include "CharacterManager.h"
+#include "Renderer.h"
+#include "GameMap.h"
+#include <unordered_map>
+#include "Cursor.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -18,6 +25,7 @@ void BattleManager::PrintBattleStatus()
 	const Character* character = battle->GetCharacter();
 	const vector<Monster*>& monsters = battle->GetMonsters();
 
+	/*
 	system("cls");
 
 	cout << "==========================================================================" << endl;
@@ -26,6 +34,7 @@ void BattleManager::PrintBattleStatus()
 	cout << "스킬강화율: " << character->GetSkillEnhancement() << " % | " << "치명타확률: " << character->GetCriticalChance() << " % " << endl;
 	cout << character->GetLevel() << " LV | " << character->GetExperience() << " EXP | " << character->GetGold() << " 원" << endl;
 	cout << "==========================================================================" << endl;
+	*/
 
 	for (Monster* monster : monsters)
 	{
@@ -33,18 +42,26 @@ void BattleManager::PrintBattleStatus()
 		{
 			if (monster->GetHealth() > 0)
 			{
-				cout << "==========================================================================" << endl;
 				if (monster->IsBoss()) {
-					cout << "최종 보스" << endl;
+					LogBox::GetInstance()->Print("최종 보스");
+					//cout << "최종 보스" << endl;
 				}
+				/*
+				cout << "==========================================================================" << endl;
 				cout << monster->GetName() << " | " << monster->GetHealth() << " HP | " << monster->GetAttack() << " AD" << endl;
 				cout << "==========================================================================" << endl;
+				*/
+				LogBox::GetInstance()->Print(format("{} | {} HP | {} AD", monster->GetName(), monster->GetHealth(), monster->GetAttack()));
+
 			}
 			else
 			{
+				/*
 				cout << "==========================================================================" << endl;
 				cout << monster->GetName() << " *  토벌완료 * " << endl;
 				cout << "==========================================================================" << endl;
+				*/
+				LogBox::GetInstance()->Print(format("{} * 토벌완료 *", monster->GetName()));
 			}
 		}
 	}
@@ -90,25 +107,84 @@ bool BattleManager::CreateBattle(int battleLevel, Character* character)
 
 void BattleManager::StartBattle()
 {
-	system("cls");
 	bool isEndBattle = false;		// 전투종료 여부
 	bool isRun = false;				// 플레이어 도망여부
 	int monsterDieCount = 0;		// 몬스터 처치수
 	const vector<Monster*>& monsters = battle->GetMonsters();
+
+	Renderer* renderer = Renderer::GetInstance();
+	renderer->SelectMap(GameMap::Battle());
 
 	for (int i = 0; i < monsters.size(); i++)
 	{
 		bool isMonsterDie = false;	// i번째 몬스터 처치여부
 		if (isEndBattle || isRun) break;
 
+		// 캐릭터 이름 렌더링
+		string name = Character::GetInstance()->GetName();
+		Renderer::GetInstance()->EditText(31, name);
+		Renderer::GetInstance()->ExpandText(31, 1, 0);
+
+		//몬스터 체력바 렌더링
+		int enemyHp = monsters[i]->GetHealth();
+		int enemyMaxHp = monsters[i]->GetHealth();
+		int currentEnemyHp = enemyHp * 80 / enemyMaxHp;
+		string enemyName = monsters[i]->GetName();
+
+		Renderer::GetInstance()->EditText(41, enemyName);
+		Renderer::GetInstance()->ExpandText(41, 1, 0);
+		Renderer::GetInstance()->EditText(51, format("{} / {}", enemyHp, enemyMaxHp));
+		Renderer::GetInstance()->SetTextBackgroundColor(51, RGB(192, 0, 0), currentEnemyHp);
+
+
 		while (!isEndBattle)
 		{
+			//캐릭터 체력바 렌더링
+			int hp = Character::GetInstance()->GetHp();
+			int mp = Character::GetInstance()->GetMp();
+			int exp = Character::GetInstance()->GetExperience();
+			int maxHp = Character::GetInstance()->GetMaxHp();
+			int maxMp = Character::GetInstance()->GetMaxMp();
+			int maxExp = Character::GetInstance()->GetExperienceCapacity();
+			int currentHp = hp * 80 / maxHp;
+			int currentMp = mp * 80 / maxMp;
+			int currentExp = exp * 80 / maxExp;
+
+			Renderer::GetInstance()->EditText(21, format("{} / {}", hp, maxHp));
+			Renderer::GetInstance()->EditText(22, format("{} / {}", mp, maxMp));
+			Renderer::GetInstance()->EditText(23, format("{} / {}", exp, maxExp));
+
+			Renderer::GetInstance()->SetTextBackgroundColor(21, RGB(192, 0, 0), currentHp);
+			Renderer::GetInstance()->SetTextBackgroundColor(22, RGB(0, 0, 192), currentMp);
+			Renderer::GetInstance()->SetTextBackgroundColor(23, RGB(0, 192, 0), currentExp);
+
 			PrintBattleStatus();
+
+			// 플레이어 차례
+			Renderer::GetInstance()->EditObjectColor(61, RGB(0, 255, 255));
+			Renderer::GetInstance()->EditObjectColor(62, RGB(128, 128, 128));
 			isRun = battle->PlayerTurn(monsters[i]);
 
 			if (isRun)
 			{
 				break;
+			} 
+
+			// 플레이어 턴 후의 몬스터 체력바 렌더링
+			enemyHp = monsters[i]->GetHealth();
+			if (enemyHp < 0) enemyHp = 0;
+			currentEnemyHp = enemyHp * 80 / enemyMaxHp;
+
+			Renderer::GetInstance()->EditText(51, format("{} / {}", enemyHp, enemyMaxHp));
+			Renderer::GetInstance()->SetTextBackgroundColor(51, RGB(192, 0, 0), currentEnemyHp);
+
+			//몬스터 차례
+			Renderer::GetInstance()->EditObjectColor(61, RGB(128, 128, 128));
+			Renderer::GetInstance()->EditObjectColor(62, RGB(0, 255, 255));
+			// 몹이 죽었을 때 몹아이콘 색깔
+			if (enemyHp <= 0)
+			{
+			Renderer::GetInstance()->EditObjectColor(62, RGB(64, 0, 64));
 			}
 
 			isMonsterDie = battle->MonsterTurn(monsters[i]);
@@ -153,7 +229,7 @@ void BattleManager::EndBattle(const string& message)
 	cout << "==========================================================" << endl;
 	cout << "| " << message << endl;
 	cout << "==========================================================" << endl;
-	Sleep(2000);
+	Sleep(1000);
 
 	delete battle;	// Battle 및 Monster 메모리 해제
 }

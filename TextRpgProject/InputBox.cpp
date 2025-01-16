@@ -1,4 +1,5 @@
 #include "InputBox.h"
+#include "LogBox.h"
 #include <iostream>
 #include "Cursor.h"
 #include "Util.h"
@@ -38,11 +39,31 @@ string InputBox::Input()
     Pos pos = ++InputBox::GetPos();
     pos.X += 8;
     Cursor::SetPosition(pos);
+    Cursor::ShowCursor();
 
-    string str = Util::inputText(30);
+    string str = Util::inputText(20);
     InputBox::Erase();
+    Cursor::HideCursor();
 
     return str;
+}
+
+int InputBox::InputNumber()
+{
+    int choice = -1;
+    try
+    {
+        choice = stoi(InputBox::GetInstance()->Input());
+    }
+    catch (const std::invalid_argument& e)
+    {
+        LogBox::GetInstance()->Print("유효하지 않은 숫자 형식입니다.", RGB(255, 0, 0));
+    }
+    catch (...)
+    {
+        LogBox::GetInstance()->Print("알 수 없는 오류가 발생했습니다.", RGB(255, 0, 0));
+    }
+    return choice;
 }
 
 void InputBox::Erase()

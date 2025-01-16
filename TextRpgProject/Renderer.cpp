@@ -27,44 +27,122 @@ Pos Renderer::GetAppSize() const
     return rootContainer->GetSize();
 }
 
-void Renderer::AddObject(Object* object)
+void Renderer::AddObject(shared_ptr<Object> object)
 {
     rootContainer->AddObject(object);
 }
-vector<Object*> Renderer::GetObjects() const
+vector<shared_ptr<Object>> Renderer::GetObjects() const
 {
     return rootContainer->GetChildren();
 }
-Container* Renderer::GetRootContainer() const
+shared_ptr<Container> Renderer::GetRootContainer() const
 {
     return rootContainer;
 }
-void Renderer::SelectMap(Container* map)
+void Renderer::SelectMap(shared_ptr<Container> map)
 {
-    Clear();
+    logBox->Clear();
+    Cursor::ClearScreen();
     rootContainer = map;
     rootContainer->SetSize(appSize);
-    this->Render();
+    this->RenderAll();
 }
 void Renderer::Clear()
 {
     if (rootContainer == nullptr) return;
 
-    for (Object* object : rootContainer->GetChildren())
+    for (shared_ptr<Object> object : rootContainer->GetChildren())
     {
         ClearObject(object);
     }
+}
+void Renderer::ClearAll()
+{
+    Cursor::ClearScreen();
+}
+void Renderer::EditText(int id, const string& text)
+{
+    shared_ptr<TextBox> textBox = rootContainer->FindObject<TextBox>(id);
+    if (textBox == nullptr) return;
 
-    delete rootContainer;
+    textBox->SetText(text);
+    this->DrawObject(textBox);
+}
+void Renderer::EditText(int id, int value)
+{
+    this->EditText(id, to_string(value));
+}
+void Renderer::ExpandText(int id, int width, int height)
+{
+    shared_ptr<TextBox> textBox = rootContainer->FindObject<TextBox>(id);
+    if (textBox == nullptr) return;
+
+    textBox->ExpandWidth(width);
+    textBox->ExpandHeight(height);
+    this->DrawObject(textBox);
+}
+void Renderer::EditTextColor(int id, RGB color)
+{
+    shared_ptr<TextBox> textBox = rootContainer->FindObject<TextBox>(id);
+    if (textBox == nullptr) return;
+
+    textBox->SetColor(color);
+    this->DrawObject(textBox);
+}
+void Renderer::SetTextBackgroundColor(int id, RGB color, int width)
+{
+    shared_ptr<TextBox> textBox = rootContainer->FindObject<TextBox>(id);
+    if (textBox == nullptr) return;
+    this->DrawObject(textBox);
+
+    string text = textBox->GetText();
+    int textLength = text.length();
+    int boxWidth = textBox->GetSize().X - 2;
+    int paddingLeft = (boxWidth - textLength) / 2;
+    int paddingRight = boxWidth - paddingLeft - textLength;
+    text = string(paddingLeft, ' ') + text + string(paddingRight, ' ');
+    /*Cursor::SetPosition(textBox->GetPos() + Pos(1, 1));
+    Cursor::SetBackgroundColor(color);
+    cout << string(width, ' ');
+    Cursor::ResetBackgroundColor();*/
+
+    Cursor::SetPosition(textBox->GetPos() + Pos(1, 1));
+    Cursor::SetBackgroundColor(color);
+    for (int i = 0; i < width; i++) { cout << text[i]; }
+    Cursor::ResetBackgroundColor();
+    for (int i = width; i < text.length(); i++) { cout << text[i]; }
+
+}
+void Renderer::EditObjectColor(int id, RGB color)
+{
+    shared_ptr<Object> textBox = rootContainer->FindObject<Object>(id);
+    if (textBox == nullptr) return;
+
+    textBox->SetColor(color);
+    this->DrawObject(textBox);
 }
 Renderer::Renderer()
 {
+    Cursor::HideCursor();
     Pos size = Util::GetConsoleWindowSize();
     size.Y -= 13;
     this->SetAppSize(size);
     this->InitIOBox(size);
     this->DrawObject(this->inputBox);
     this->DrawObject(this->logBox);
+}
+void Renderer::DrawObject(shared_ptr<Object> object)
+{
+    Pos pos = object->GetPos();
+    RGB color = object->GetColor();
+    Cursor::SetTextColor(color);
+    for (const string& line : object->GetBody())
+    {
+        Cursor::SetPosition(pos);
+        cout << line;
+        pos.Y++;
+    }
+    Cursor::ResetAllStyle();
 }
 void Renderer::DrawObject(Object* object)
 {
@@ -79,7 +157,7 @@ void Renderer::DrawObject(Object* object)
     }
     Cursor::ResetAllStyle();
 }
-void Renderer::ClearObject(Object* object)
+void Renderer::ClearObject(shared_ptr<Object> object)
 {
     Pos pos = object->GetPos();
     for (const string& line : object->GetBody())
@@ -105,7 +183,23 @@ void Renderer::InitIOBox(Pos size)
 }
 void Renderer::Render()
 {
-    for (Object* object : rootContainer->GetChildren()) {
+    for (auto& object : rootContainer->GetChildren()) {
         DrawObject(object);
     }
+}
+
+void Renderer::RenderAll()
+{
+    this->ClearAll();
+    this->Render();
+    this->DrawObject(this->inputBox);
+    this->DrawObject(this->logBox);
+}
+
+void Renderer::DeleteInstanceAll()
+{
+    inputBox->DeleteInstance();
+    logBox->DeleteInstance();
+    DeleteInstance();
+
 }
