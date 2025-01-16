@@ -6,6 +6,8 @@
 #include "CharacterManager.h"
 #include "SkillManager.h"
 #include "BattleManager.h"
+#include "ItemManager.h"
+#include "ShopManager.h"
 //·»´õ¸µ 
 #include "Renderer.h"
 #include "GameMap.h"
@@ -15,6 +17,8 @@ using namespace std;
 CharacterManager* characterManager;
 BattleManager* battleManager;
 SkillManager* skillManager;
+ItemManager* itemManager;
+ShopManager* shopManager;
 static Character* curCharacter;
 //·»´õ¸µ Å¬·¡½º Ãß°¡
 Renderer* renderer;
@@ -25,6 +29,8 @@ void GameManager::Init()
 	characterManager = CharacterManager::GetInstance();
 	battleManager = BattleManager::GetInstance();
 	skillManager = SkillManager::GetInstance();
+	itemManager = ItemManager::GetInstance();
+	shopManager = ShopManager::GetInstance();
 	//·»´õ¸µ °ü¸®ÀÚ
 	renderer = Renderer::GetInstance();
 	battleManager->Init();
@@ -81,8 +87,11 @@ bool GameManager::Main()
 		characterManager->SetCharacterStat();
 		break;
 	case 3:
+		curCharacter->PrintItemList();
+		Sleep(3000);
 		break;
 	case 4:
+		shopManager->VisitShop(*curCharacter);
 		break;
 	case 5:
 		EndGame();

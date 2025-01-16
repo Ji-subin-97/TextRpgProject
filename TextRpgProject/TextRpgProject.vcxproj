@@ -145,6 +145,7 @@
     <ClCompile Include="Human.cpp" />
     <ClCompile Include="IceStorm.cpp" />
     <ClCompile Include="InputBox.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="LogBox.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Mateor.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="ShopManager.cpp" />
     <ClCompile Include="SkillManager.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="Sparata.cpp" />
@@ -176,6 +178,8 @@
     <ClInclude Include="GoldenGoblin.h" />
     <ClInclude Include="Human.h" />
     <ClInclude Include="InputBox.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="LogBox.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterManager.h" />
@@ -184,6 +188,7 @@
     <ClInclude Include="Orc.h" />
     <ClInclude Include="Random.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="ShopManager.h" />
     <ClInclude Include="SingleTon.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillManager.h" />

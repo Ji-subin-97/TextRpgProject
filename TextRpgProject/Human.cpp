@@ -9,7 +9,7 @@ Human::Human(int playerLevel) {
 	isBoss = false;
 
 	int healthBase = GetIntToRandom(40, 50);
-	int attackBase = GetIntToRandom(10, 20);
+	int attackBase = GetIntToRandom(9, 11);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }

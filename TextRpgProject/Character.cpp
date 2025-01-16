@@ -16,6 +16,7 @@ void Character::Init()
 	mp = 50;
 	maxhp = 50;
 	attack = 10;
+	attackBonus = 0;
 	experience = 0;
 	experienceCapacity = 50;
 	gold = 0;
@@ -81,6 +82,11 @@ int Character::GetMaxMp() const
 int Character::GetAttack() const
 {
 	return attack;
+}
+
+int Character::GetAttackBonus() const
+{
+	return attackBonus;
 }
 
 int Character::GetExperience() const
@@ -169,6 +175,11 @@ void Character::SetAttack(int _attack)
 	attack = _attack;
 }
 
+void Character::SetAttackBonus(int _attackBonus)
+{
+	attackBonus = _attackBonus;
+}
+
 void Character::SetExperience(int _experience)
 {
 	experience = _experience;
@@ -220,7 +231,6 @@ void Character::SetStatStockAll(int _statStockAll)
 }
 
 // 캐릭터 행동
-
 void Character::CharacterLevelUp()
 {
 	// 레벨업 시 스텟5++, 레벨1++ 후 매니저에서 캐릭터능력치 조정
@@ -233,10 +243,10 @@ void Character::CharacterLevelUp()
 int Character::CharacterAttack()
 {
 	// 공격계산 : 명중 실패시 데미지 0, 명중시 (공격력 * 1.3(치명타확률 배수는 1.3배))
-	int attack = this->attack;
+	int attack = this->attack + attackBonus;	// 아이템 기능 추가로인한 보너스공격력 추가.
 	double accuracy = this->accuracy;
 	double randomScope = GetDoubleToRandom(0.0, 100.0);
-	
+
 	if (randomScope > accuracy)
 	{
 		cout << "[ " << name << " ] 님의 공격이 빗나갔습니다!" << endl;
@@ -244,13 +254,13 @@ int Character::CharacterAttack()
 		return 0;
 	}
 
-    double criticalChance = this->criticalChance;
+	double criticalChance = this->criticalChance;
 	randomScope = GetDoubleToRandom(0.0, 100.0);
 
 	if (randomScope < criticalChance)
 	{
 		attack = static_cast<int>(attack * 1.3);
-		cout << "[ " << name << " ] 님의 공격이 " << attack  << "만큼 치명적인 데미지를 주었습니다!" << endl;
+		cout << "[ " << name << " ] 님의 공격이 " << attack << "만큼 치명적인 데미지를 주었습니다!" << endl;
 	}
 	else {
 		cout << "[ " << name << " ] 님의 공격이 " << attack << "만큼 데미지를 주었습니다!" << endl;
@@ -290,6 +300,160 @@ bool Character::IsDead()
 	}
 
 	return false;
+}
+
+// 아이템관련
+void Character::PrintItemList()
+{
+	std::cout << "\n===== " << name << "의 인벤토리 =====\n";
+	int index = 1;
+	for (const auto& pair : inventory) {
+		const auto& item = pair.first;
+		int quantity = pair.second;
+		std::cout << "[ " << index++ << " ] " << item->GetName()
+			<< " (체력 +" << item->GetHealthBoost()
+			<< ", 공격력 +" << item->GetAttackBoost()
+			<< ") x" << quantity << "개\n";
+	}
+}
+
+int Character::UseItem()
+{
+	int choice = 0;
+
+	while (true)
+	{
+		if (inventory.empty())
+		{
+			cout << "현재 보유하고 있는 아이템이 없습니다." << endl;
+			Sleep(1500);
+			break;
+		}
+
+		PrintItemList();
+		cout << "[ 0 ] 사용안함." << endl;
+		cout << "사용하실 아이템을 선택해주세요." << endl;
+		cout << "선택: ";
+		cin >> choice;
+
+		if (cin.fail())
+		{
+			cout << "숫자만 입력가능합니다." << endl;
+			cin.clear();
+			cin.ignore();
+
+			continue;
+		}
+
+		// 사용안함 눌렀을시 -1 리턴
+		if (choice == 0)
+		{
+			return -1;
+		}
+
+		int attackBoost = 0;
+		int healthBoost = 0;
+
+		auto item = GetItem(choice);
+		if (!item) {
+			std::cout << "잘못된 아이템 번호입니다.\n";
+			continue;
+		}
+		else
+		{
+			attackBoost = item->GetAttackBoost();
+			healthBoost = item->GetHealthBoost();
+
+			cout << "[ " << name << " ] 은 " << item->GetName() << "아이템을 사용하였습니다!" << endl;
+			if (attackBoost > 0) AttackBoost(attackBoost);
+			if (healthBoost > 0) Heal(healthBoost);
+
+			RemoveItem(item);
+
+			break;
+		}
+	}
+
+	return 1;
+}
+
+void Character::Heal(int health)
+{
+	cout << "캐릭터가 " << health << "만큼 회복되었습니다." << endl;
+
+	this->hp += health;
+	if (hp > maxhp)
+	{
+		hp = maxhp;
+	}
+
+	Sleep(1500);
+}
+
+void Character::AttackBoost(int attackBoost)
+{
+	cout << "캐릭터의 공격력이 " << attackBoost << "만큼 상승하였습니다." << endl;
+	
+	attackBonus += attackBoost;
+
+	Sleep(1500);
+}
+
+std::shared_ptr<Item> Character::GetItem(int index) const {
+	if (index < 1 || index > inventory.size()) {
+		return nullptr;
+	}
+	auto it = std::next(inventory.begin(), index - 1);
+	return it->first;
+}
+
+void Character::AddItem(std::shared_ptr<Item> item) {
+	inventory[item]++;
+}
+
+bool Character::RemoveItem(std::shared_ptr<Item> item) {
+	auto it = inventory.find(item);
+	if (it != inventory.end()) {
+		if (it->second > 1) {
+			it->second--;
+		}
+		else {
+			inventory.erase(it);
+		}
+		return true;
+	}
+	return false;
+}
+
+bool Character::HasItems() const {
+	return !inventory.empty();
+}
+
+size_t Character::InventorySize() const {
+	return inventory.size();
+}
+
+int Character::GetItemQuantity(std::shared_ptr<Item> item) const {
+	auto it = inventory.find(item);
+	return (it != inventory.end()) ? it->second : 0;
+}
+
+void Character::DisplayStatus() const {
+	std::cout << "\n===== " << name << "의 상태 =====\n";
+	std::cout << "체력: " << hp << "/" << maxhp << "\n";
+	std::cout << "마나: " << mp << "/" << maxmp << "\n";
+	std::cout << "공격력: " << attack << "\n";
+	std::cout << "골드: " << gold << "\n";
+
+	Sleep(3000);
+}
+
+void Character::SpendGold(int amount) {
+	SetGold(GetGold() - amount);
+}
+
+void Character::EarnGold(int amount) {
+	SetGold(GetGold() + amount);
 }
 
 // 스킬관련 ===========================================================================================

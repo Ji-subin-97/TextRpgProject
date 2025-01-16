@@ -99,9 +99,6 @@
     <ClCompile Include="Cursor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameMap.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="InputBox.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -125,6 +122,15 @@
     </ClCompile>
     <ClCompile Include="GoldenGoblin.cpp">
       <Filter>엔티티</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMap.cpp">
+      <Filter>맵</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopManager.cpp">
+      <Filter>매니저</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemManager.cpp">
+      <Filter>매니저</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +206,6 @@
     <ClInclude Include="Cursor.h">
       <Filter>유저인터페이스\박스</Filter>
     </ClInclude>
-    <ClInclude Include="GameMap.h">
-      <Filter>유저인터페이스\박스</Filter>
-    </ClInclude>
     <ClInclude Include="LogBox.h">
       <Filter>유저인터페이스\박스</Filter>
     </ClInclude>
@@ -226,6 +229,18 @@
     </ClInclude>
     <ClInclude Include="GoldenGoblin.h">
       <Filter>엔티티</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMap.h">
+      <Filter>맵</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopManager.h">
+      <Filter>매니저</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemManager.h">
+      <Filter>매니저</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

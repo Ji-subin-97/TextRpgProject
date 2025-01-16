@@ -9,7 +9,7 @@ Orc::Orc(int playerLevel) {
 	isBoss = false;
 
 	int healthBase = GetIntToRandom(20, 30);
-	int attackBase = GetIntToRandom(5, 7);
+	int attackBase = GetIntToRandom(3, 5);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }

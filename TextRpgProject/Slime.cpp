@@ -9,7 +9,7 @@ Slime::Slime(int playerLevel) {
 	isBoss = false;
 
 	int healthBase = GetIntToRandom(5, 10);
-	int attackBase = GetIntToRandom(1, 3);
+	int attackBase = GetIntToRandom(1, 2);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }

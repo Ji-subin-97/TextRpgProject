@@ -9,7 +9,7 @@ Troll::Troll(int playerLevel) {
 	isBoss = false;
 
 	int healthBase = GetIntToRandom(30, 40);
-	int attackBase = GetIntToRandom(10, 15);
+	int attackBase = GetIntToRandom(6, 8);
 	health = playerLevel * healthBase;
 	attack = playerLevel * attackBase;
 }

@@ -6,7 +6,7 @@
 #include "SingleTon.h"
 #include "CharacterObserver.h"
 #include "SkillManager.h"
-
+#include "Item.h"
 
 // 캐릭터 스텟
 struct CharacterStat
@@ -32,6 +32,7 @@ private:
 	int mp;								// 마나
 	int maxmp;							// 최대마나
 	int attack;							// 공격력
+	int attackBonus;					// 공격력 보너스(아이템 사용시)
 	int experience;						// 경험치
 	int experienceCapacity;				// 경험치 통
 	int gold;							// 골드
@@ -46,6 +47,7 @@ private:
 	int statStockAll;					// 전체 스텟양
 
 	std::vector<std::unique_ptr<Skill>> skillInventory;		// 스킬 인벤토리
+	std::map<std::shared_ptr<Item>, int> inventory;         // 아이템 인벤토리
 
 	Character() = default;
 	~Character() = default;
@@ -66,6 +68,7 @@ public:
 	int GetMp() const;
 	int GetMaxMp() const;
 	int GetAttack() const;
+	int GetAttackBonus() const;
 	int GetExperience() const;
 	int GetExperienceCapacity() const;
 	int GetGold() const;
@@ -84,6 +87,7 @@ public:
 	void SetMp(int _mp);
 	void SetMaxMp(int _maxMp);
 	void SetAttack(int _attack);
+	void SetAttackBonus(int _attackBonus);
 	void SetExperience(int _experience);
 	void SetExperienceCapacity(int _expCapacity);
 	void SetGold(int _gold);
@@ -98,20 +102,37 @@ public:
 	// 캐릭터 행동
 	void CharacterLevelUp();					// 레벨업
 	int CharacterAttack();						// 공격
-	
+
 	void TakeDamage(int damage);				// 데미지입음
 	void TakeExp(int exp);						// 경험치얻음
 	void TakeGold(int gold);					// 골드얻음
-	
+
 	bool IsDead();								// 캐릭터 죽음여부
 
 	// 아이템관련
-	// void PrintItemList();					// 캐릭터가 현재가지고있는 아이템 목록
+	void PrintItemList();						// 캐릭터가 현재가지고있는 아이템 목록
 	// void TakeItem(Item item);				// 아이템 얻기
-	// void UseItem();							// 아이템 사용
+	int UseItem();								// 아이템 사용
+	void Heal(int health);						// 회복
+	void AttackBoost(int attackBoost);			// 공격력 상승
+
+	std::shared_ptr<Item> GetItem(int index) const;
+	size_t InventorySize() const;
+	int GetItemQuantity(std::shared_ptr<Item> item) const;
+	// void DisplayInventory() const;	-> PrintItemList로 대체
+	void DisplayStatus() const;
+	void AddItem(std::shared_ptr<Item> item);
+	bool RemoveItem(std::shared_ptr<Item> item);
+	bool HasItems() const;
+
+	// 골드 관련
+	void SpendGold(int amount);
+	void EarnGold(int amount);
 
 	// 스킬관련
 	void PrintSkillList();						// 캐릭터가 현재가지고있는 스킬 목록
 	void TakeSkill(std::unique_ptr<Skill> skill);		// 스킬얻기
 	int UseSkill();								// 스킬사용
+
+
 };

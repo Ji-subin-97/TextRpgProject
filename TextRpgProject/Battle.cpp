@@ -12,10 +12,10 @@ bool Battle::PlayerTurn(Monster* monster)
 	int choice = 0;
 
 	cout << "\n* 플레이어 턴 *" << endl;
-	cout << "1. 공격 ( " << character->GetAttack() << " )" << endl;
+	cout << "1. 공격 ( " << character->GetAttack() << " + " <<  character->GetAttackBonus() << " )" << endl;
 	cout << "2. 스킬" << endl;
-	// cout << "2. 아이템" << endl;
-	cout << "3. 도망" << endl;
+	cout << "3. 아이템" << endl;
+	cout << "4. 도망" << endl;
 
 	while (true)
 	{
@@ -64,8 +64,16 @@ bool Battle::PlayerTurn(Monster* monster)
 
 			break;
 		}
-		// 캐릭터 아이템 리스트 불러오고 선택해서 사용: 아이템사용도 턴 소모
 		else if (choice == 3)
+		{
+			int itemUse = character->UseItem();
+
+			if (itemUse == -1)
+			{
+				continue;
+			}
+		}
+		else if (choice == 4)
 		{
 			cout << "도망을 선택하셨습니다. 전투화면으로 돌아갑니다." << endl;
 			Sleep(1500);
@@ -100,12 +108,8 @@ bool Battle::MonsterTurn(Monster* monster)
 		Sleep(1500);
 		character->TakeExp(exp);
 		character->TakeGold(gold);
-		//Item* item = monster->DropItem(30);
-
-		//if (item != nullptr)
-		//{
-		//	character->TakeItem(item);
-		//}
+		// 전투 종료후 공격력 버프해제
+		character->SetAttackBonus(0);
 
 		return true;
 	}
