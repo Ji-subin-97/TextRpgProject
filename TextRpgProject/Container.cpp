@@ -39,7 +39,7 @@ void Container::AddObject(shared_ptr<Object> object)
             break;
         }
     }
-    object->SetParant(this);
+    //object->SetParant(this);
     children.push_back(object);
     // 컨테이너에 오브젝트를 추가하면서, 오브젝트를 컨테이너에 맞게 수정
     Pos pos = this->GetPos();

@@ -15,7 +15,7 @@ class Object
 	int overlap = 0;
 	//uInt8 depth = 0;
 	int id = 0;
-	Object* parent = nullptr;
+	//Object* parent = nullptr;
 protected:
 	void UpdateSize();
 	void UpdateSize(Pos _size);
@@ -32,7 +32,7 @@ public:
 	virtual void SetPos(Pos _pos);
 	virtual void SetPos(int x, int y);
 	void SetId(int _id);
-	void SetParant(Object* object);
+	//void SetParant(Object* object);
 	void SetOverlap(int value);
 	RGB GetColor() const;
 	vector<string> GetBody() const;
@@ -40,6 +40,6 @@ public:
 	Pos GetSize() const;
 	int GetId() const;
 	int GetOverlap() const;
-	Object* GetParent() const;
+	//Object* GetParent() const;
 };
 

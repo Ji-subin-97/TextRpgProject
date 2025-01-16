@@ -58,10 +58,10 @@ void Object::SetId(int _id)
 {
 	id = _id;
 }
-void Object::SetParant(Object* object)
-{
-	parent = object;
-}
+//void Object::SetParant(Object* object)
+//{
+//	parent = object;
+//}
 void Object::SetOverlap(int value)
 {
 	overlap = value;
@@ -90,7 +90,7 @@ int Object::GetOverlap() const
 {
 	return overlap;
 }
-Object* Object::GetParent() const
-{
-	return parent;
-}
+//Object* Object::GetParent() const
+//{
+//	return parent;
+//}
