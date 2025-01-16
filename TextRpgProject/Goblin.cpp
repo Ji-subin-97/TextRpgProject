@@ -40,7 +40,7 @@ int Goblin::DropGold()
 
 void Goblin::Die()
 {
-	LogBox::GetInstance()->Print("고블린은 더이상 심장이 뛰지 않는다.");
+	LogBox::GetInstance()->Print("고블린은 더이상 심장이 뛰지 않는다.", RGB(255, 0, 255));
 	//cout << "고블린은 더이상 심장이 뛰지 않는다." << endl;
 }
 

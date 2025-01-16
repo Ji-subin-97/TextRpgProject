@@ -85,7 +85,7 @@ size_t ShopManager::itemCount() const {
 
 void ShopManager::manageInventory(Character& player) const {
     player.DisplayStatus();
-    player.PrintItemList();
+    player.DisplayItemList();
 
     if (!player.HasItems()) {
         std::cout << "인벤토리가 비어있습니다.\n";

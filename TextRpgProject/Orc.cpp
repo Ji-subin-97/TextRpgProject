@@ -40,7 +40,7 @@ int Orc::DropGold()
 
 void Orc::Die()
 {
-	LogBox::GetInstance()->Print("오크는 더이상 소리내지 않는다.");
+	LogBox::GetInstance()->Print("오크는 더이상 소리내지 않는다.", RGB(255, 0, 255));
 	//cout << "오크는 더이상 소리내지 않는다." << endl;
 }
 

@@ -40,7 +40,7 @@ int Human::DropGold()
 
 void Human::Die()
 {
-	LogBox::GetInstance()->Print("±×´Â Á×¾ú´Ù.");
+	LogBox::GetInstance()->Print("±×´Â Á×¾ú´Ù.", RGB(255, 0, 255));
 	//cout << "±×´Â Á×¾ú´Ù." << endl;
 }
 

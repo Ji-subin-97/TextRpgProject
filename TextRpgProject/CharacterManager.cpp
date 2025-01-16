@@ -11,6 +11,7 @@
 #include "InputBox.h"
 #include "Renderer.h"
 #include "GameMap.h"
+#include "Cursor.h"
 
 using namespace std;
 
@@ -26,20 +27,17 @@ void CharacterManager::CreateCharacter()
 
 		string name = "";
 		LogBox::GetInstance()->Print("어서오세요. 캐릭터 생성에 앞서 이름을 정해주세요.");
-		//cout << "어서오세요. 캐릭터 생성에 앞서 이름을 정해주세요." << endl;
-		//cout << "입력: ";
 		name = InputBox::GetInstance()->Input();
 
 		character->SetName(name);
 
 		Renderer::GetInstance()->SelectMap((GameMap::SelectStat()));
-		//cout << "생성하신 플레이어의 이름은 " << name << " 입니다." << endl;
-		Sleep(1500);
+		//Sleep(500);
 		LogBox::GetInstance()->Print(format("생성하신 플레이어의 이름은 {} 입니다.", name));
-		Sleep(1500);
-
 		Renderer::GetInstance()->EditText(20, name);
 		Renderer::GetInstance()->ExpandText(20, 1, 0);
+		Sleep(1000);
+
 
 		while (!isComplete)
 		{
@@ -57,41 +55,11 @@ void CharacterManager::CreateCharacter()
 			Renderer::GetInstance()->EditText(15, character->GetCharacterStat().INT);
 			Renderer::GetInstance()->EditText(16, character->GetCharacterStat().LUK);
 
-			/*
-			cout << "캐릭터의 기본 스텟을 정해주세요." << endl;
-			cout << "================================" << endl;
-			cout << "HP: " << character->GetCharacterStat().HP << endl;
-			cout << "MP: " << character->GetCharacterStat().MP << endl;
-			cout << "STR: " << character->GetCharacterStat().STR << endl;
-			cout << "DEX: " << character->GetCharacterStat().DEX << endl;
-			cout << "INT: " << character->GetCharacterStat().INT << endl;
-			cout << "LUK: " << character->GetCharacterStat().LUK << endl;
-			cout << "================================" << endl;
-
-			cout << "\n플레이어 스텟이 마음에 드시면 완료, 아니면 재설정을 선택해주세요." << endl;
-			cout << "1. 완료" << endl;
-			cout << "2. 재설정" << endl;
-			cout << "선택: ";
-			cin >> choice;
-			*/
-
 			choice = InputBox::GetInstance()->InputNumber();
-
-			/*
-			if (cin.fail())
-			{
-				cout << "숫자만 입력가능합니다." << endl;
-				cin.clear();
-				cin.ignore();
-
-				continue;
-			}
-			*/
 
 			if (choice == 1)
 			{
 				LogBox::GetInstance()->Print("캐릭터 설정이 완료되었습니다. 캐릭터를 생성합니다.");
-				//cout << "캐릭터 설정이 완료되었습니다. 캐릭터를 생성합니다." << endl;
 				Sleep(2000);
 				isComplete = true;
 			}
@@ -104,7 +72,6 @@ void CharacterManager::CreateCharacter()
 			{
 				LogBox::GetInstance()->Clear();
 				LogBox::GetInstance()->Print("잘못된 입력입니다.", RGB(255, 0, 0));
-				//cout << "잘못된 입력입니다." << endl;
 				continue;
 			}
 
@@ -116,7 +83,6 @@ void CharacterManager::CreateCharacter()
 	else
 	{
 		LogBox::GetInstance()->Print("캐릭터 생성에 실패하였습니다. 관리자에게 문의해주세요.", RGB(255, 0, 0));
-		//cout << "캐릭터 생성에 실패하였습니다. 관리자에게 문의해주세요." << endl;
 	}
 
 }
@@ -125,8 +91,8 @@ Character* CharacterManager::GetCharacter()
 {
 	Character* character = Character::GetInstance();
 
-	if (character == nullptr) {
-		//cout << "캐릭터가 존재하지않습니다." << endl;
+	if (character == nullptr)
+	{
 		LogBox::GetInstance()->Print("캐릭터가 존재하지않습니다.", RGB(255, 0, 0));
 	}
 
@@ -191,7 +157,7 @@ void CharacterManager::GenerateCharacter(Character& character, bool isFirst)
 void CharacterManager::PrintCharacterInfoAll()
 {
 	Character* character = Character::GetInstance();
-	//system("cls");
+	system("cls");
 	if (character != nullptr)
 	{
 		cout << "\n====================================================================" << endl;
@@ -355,6 +321,7 @@ void CharacterManager::SetCharacterStatAfterLevelUp()
 {
 	Character* character = Character::GetInstance();
 
+	Cursor::SetTextColor(RGB(255, 255, 255));
 	system("cls");
 	cout << "축하드립니다 캐릭터가 " << character->GetLevel() << " LV 으로 레벨업하였습니다!" << endl;
 	cout << "잠시후 스탯관리창으로 넘어갑니다." << endl;

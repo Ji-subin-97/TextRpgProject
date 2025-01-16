@@ -42,54 +42,24 @@ void GameManager::Init()
 
 void GameManager::CreateCharacter()
 {
-	/*
-	cout << "----------------------------------------------" << endl;
-	cout << "|                  TEXT RPG                  |" << endl;
-	cout << "----------------------------------------------" << endl;
-	*/
-
 	renderer->SelectMap(GameMap::Index());							// 캐릭터 생성화면
 	characterManager->CreateCharacter();							// 캐릭터 생성
 	curCharacter = characterManager->GetCharacter();				// 현재 캐릭터지정
 
 	LogBox::GetInstance()->Print("캐릭터 생성완료!");
-	//cout << "캐릭터 생성완료!" << endl;
-	Sleep(2000);
+	Sleep(1000);
 }
 
 bool GameManager::Main()
 {
-	//system("cls");
 	renderer->SelectMap(GameMap::Main());
 	LogBox::GetInstance()->Print(format("{} 님 어서오세요. 원하시는 행동을 선택해주세요!", curCharacter->GetName()));
-	//cout << "[ " << curCharacter->GetName() << " ] 님 어서오세요. 원하시는 행동을 선택해주세요!" << endl;
-	//characterManager->PrintCharacterInfoAll();
 
 	int choice = 0;
 
 	LogBox::GetInstance()->Print("1. 전투 / 2. 스텟관리 / 3. 인벤토리 / 4. 상점 / 5. 종료");
 
 	choice = InputBox::GetInstance()->InputNumber();
-
-	/*
-	cout << "\n1. 전투" << endl;
-	cout << "2. 캐릭터 스텟관리" << endl;
-	cout << "3. 인벤토리" << endl;
-	cout << "4. 상점" << endl;
-	cout << "5. 종료" << endl;
-
-	cout << "\n행동 선택: ";
-	cin >> choice;
-
-	if (cin.fail())
-	{
-		cout << "숫자만 입력가능합니다." << endl;
-		cin.clear();
-		cin.ignore();
-
-		return true;
-	}
-	*/
 
 	switch (choice)
 	{
@@ -100,10 +70,12 @@ bool GameManager::Main()
 		characterManager->SetCharacterStat();
 		break;
 	case 3:
+		LogBox::GetInstance()->Clear();
 		curCharacter->PrintItemList();
 		Sleep(3000);
 		break;
 	case 4:
+		Cursor::ClearScreen();
 		shopManager->VisitShop(*curCharacter);
 		break;
 	case 5:
@@ -111,9 +83,8 @@ bool GameManager::Main()
 		return false;
 		break;
 	default:
-		//cout << "메뉴에 해당되는 번호만 입력해주세요." << endl;
-		LogBox::GetInstance()->Clear();
 		LogBox::GetInstance()->Print("메뉴에 해당되는 번호만 입력해주세요.", RGB(255, 0, 0));
+		Sleep(500);
 		return true;
 		break;
 	}
@@ -134,26 +105,6 @@ void GameManager::Battle()
 
 		int choice;
 
-		/*
-		system("cls");
-		characterManager->PrintCharacterInfoAll();
-		cout << "현재 전투레벨: " << battleManager->GetBattleLevel() << " LV" << endl;
-
-		cout << "\n1. 전투시작" << endl;
-		cout << "2. 전투레벨설정" << endl;
-		cout << "3. 메인화면" << endl;
-		cout << "행동 선택: ";
-		cin >> choice;
-
-		if (cin.fail())
-		{
-			cout << "숫자만 입력가능합니다." << endl;
-			cin.clear();
-			cin.ignore();
-
-			continue;
-		}
-		*/
 		unordered_map<string, string> stat = characterManager->GetCharacterStat();
 
 		Renderer::GetInstance()->EditText(21, stat["level"]);
@@ -165,9 +116,9 @@ void GameManager::Battle()
 		Renderer::GetInstance()->EditText(27, stat["luk"]);
 		Renderer::GetInstance()->EditText(31, stat["attack"]);
 		Renderer::GetInstance()->EditText(32, stat["damageReduction"]);
-		Renderer::GetInstance()->EditText(33, stat["accuracy"] + " %");
-		Renderer::GetInstance()->EditText(34, stat["skillEnhancement"] + " %");
-		Renderer::GetInstance()->EditText(35, stat["criticalChance"] + " %");
+		Renderer::GetInstance()->EditText(33, "  " + stat["accuracy"] + " %");
+		Renderer::GetInstance()->EditText(34, "  " + stat["skillEnhancement"] + " %");
+		Renderer::GetInstance()->EditText(35, "  " + stat["criticalChance"] + " %");
 		Renderer::GetInstance()->EditText(36, stat["exp"]);
 		Renderer::GetInstance()->EditText(37, stat["gold"]);
 		Renderer::GetInstance()->EditText(40, stat["name"]);
@@ -210,7 +161,6 @@ void GameManager::Battle()
 			{
 				LogBox::GetInstance()->Clear();
 				LogBox::GetInstance()->Print("전투레벨 생성에 실패하였습니다. 다시 시도해주세요.", RGB(255, 0, 0));
-				//cout << "전투레벨 생성에 실패하였습니다. 다시 시도해주세요." << endl;
 			}
 			break;
 		case 2:
@@ -218,27 +168,11 @@ void GameManager::Battle()
 
 			while (true)
 			{
-				/*
-				cin.ignore();
-				cout << "원하시는 전투레벨을 입력해주세요. (1LV ~ 5LV)" << endl;
-				cout << "입력: ";
-				cin >> choice;
-
-				if (cin.fail())
-				{
-					cout << "숫자만 입력가능합니다." << endl;
-					cin.clear();
-					cin.ignore();
-
-					continue;
-				}
-				*/
 				LogBox::GetInstance()->Print("원하시는 전투레벨을 입력해주세요. (1LV ~ 5LV)");
 				choice = InputBox::GetInstance()->InputNumber();
 
 				if (choice < 1 || choice > 5)
 				{
-					//cout << "전투레벨은 1LV ~ 5LV까지만 입력가능합니다." << endl;
 					LogBox::GetInstance()->Clear();
 					LogBox::GetInstance()->Print("전투레벨은 1LV ~5LV까지만 입력가능합니다.", RGB(255, 0, 0));
 					continue;
@@ -255,7 +189,6 @@ void GameManager::Battle()
 			flag = false;
 			break;
 		default:
-			//cout << "메뉴에 해당되는 번호만 입력해주세요." << endl;
 			LogBox::GetInstance()->Clear();
 			LogBox::GetInstance()->Print("메뉴에 해당되는 번호만 입력해주세요.", RGB(255, 0, 0));
 			continue;
@@ -266,7 +199,6 @@ void GameManager::Battle()
 
 void GameManager::EndGame()
 {
-	//cout << "게임을 종료합니다." << endl;
 	LogBox::GetInstance()->Print("게임을 종료합니다.", RGB(255, 0, 255));
 	Sleep(2000);
 	renderer->ClearAll();

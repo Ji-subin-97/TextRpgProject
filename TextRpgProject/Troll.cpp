@@ -40,7 +40,7 @@ int Troll::DropGold()
 
 void Troll::Die()
 {
-	LogBox::GetInstance()->Print("거대한 몸뚱이는 더이상 움직이지 않는다.");
+	LogBox::GetInstance()->Print("거대한 몸뚱이는 더이상 움직이지 않는다.", RGB(255, 0, 255));
 	//cout << "거대한 몸뚱이는 더이상 움직이지 않는다." << endl;
 }
 

@@ -40,7 +40,7 @@ int Slime::DropGold()
 
 void Slime::Die()
 {
-	LogBox::GetInstance()->Print("슬라임은 녹아버렸다.");
+	LogBox::GetInstance()->Print("슬라임은 녹아버렸다.", RGB(255, 0, 255));
 	//cout << "슬라임은 녹아버렸다." << endl;
 }
 

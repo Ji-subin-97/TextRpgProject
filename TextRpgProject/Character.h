@@ -111,6 +111,7 @@ public:
 
 	// 아이템관련
 	void PrintItemList();						// 캐릭터가 현재가지고있는 아이템 목록
+	void DisplayItemList();						// cout으로 출력하는 버전
 	// void TakeItem(Item item);				// 아이템 얻기
 	int UseItem();								// 아이템 사용
 	void Heal(int health);						// 회복

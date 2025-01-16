@@ -1,9 +1,12 @@
 #include <iostream>
+#include <format>
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN 
 #include <Windows.h>
 #include "Battle.h"
 #include "GameManager.h"
+#include "InputBox.h"
+#include "LogBox.h"
 
 using namespace std;
 
@@ -11,39 +14,28 @@ bool Battle::PlayerTurn(Monster* monster)
 {
 	int choice = 0;
 
-	cout << "\n* 플레이어 턴 *" << endl;
-	cout << "1. 공격 ( " << character->GetAttack() << " + " <<  character->GetAttackBonus() << " )" << endl;
-	cout << "2. 스킬" << endl;
-	cout << "3. 아이템" << endl;
-	cout << "4. 도망" << endl;
+	LogBox::GetInstance()->Print("* 플레이어 턴 *");
 
 	while (true)
 	{
+		LogBox::GetInstance()->Print("1. 공격 / 2. 스킬 / 3. 아이템 / 4. 도망");
 		if (character->IsDead())
 		{
-			cout << "캐릭터가 사망하였습니다. 게임이 종료됩니다." << endl;
+			LogBox::GetInstance()->Print("캐릭터가 사망하였습니다.게임이 종료됩니다.",RGB(255,0,255));
 			Sleep(2000);
 			GameManager::GetInstance()->EndGame();
 			exit(0);
 		}
 
-		cout << "행동입력: ";
-		cin >> choice;
-
-		if (cin.fail())
-		{
-			cout << "숫자만 입력가능합니다." << endl;
-			cin.clear();
-			cin.ignore();
-		}
+		LogBox::GetInstance()->Clear();
+		choice = InputBox::GetInstance()->InputNumber();
 
 		if (choice == 1)
 		{
-			cout << "==============================================" << endl;
-			cout << character->GetName() << " 의 공격!" << endl;
+			LogBox::GetInstance()->Print(format("{} 의 공격!", character->GetName()));
 			int damage = character->CharacterAttack();
 			monster->TakeDamage(damage);
-			cout << monster->GetName() << " 은 " << damage << " 데미지를 입었습니다." << endl;
+			LogBox::GetInstance()->Print(format("{} 은 {} 데미지를 입었습니다.", monster->GetName(), damage));
 			Sleep(1500);
 			
 			break;
@@ -55,9 +47,8 @@ bool Battle::PlayerTurn(Monster* monster)
 				return false;
 			} 
 
-			cout << "==============================================" << endl;
 			monster->TakeDamage(skillDamage);
-			cout << monster->GetName() << " 은 " << skillDamage << " 데미지를 입었습니다." << endl;
+			LogBox::GetInstance()->Print(format("{} 은 {} 데미지를 입었습니다.", monster->GetName(), skillDamage));
 			Sleep(1500);
 
 			break;
@@ -73,7 +64,7 @@ bool Battle::PlayerTurn(Monster* monster)
 		}
 		else if (choice == 4)
 		{
-			cout << "도망을 선택하셨습니다. 전투화면으로 돌아갑니다." << endl;
+			LogBox::GetInstance()->Print("도망을 선택하셨습니다. 전투화면으로 돌아갑니다.");
 			Sleep(1500);
 			return true;
 		}
@@ -91,9 +82,8 @@ bool Battle::MonsterTurn(Monster* monster)
 		// 만약 처치한 몬스터가 보스몹일 경우 게임 종료
 		if (monster->IsBoss())
 		{
-			cout << "************************************************ 축하합니다! 최종 보스를 토벌하였습니다! ************************************************" << endl;
+			LogBox::GetInstance()->Print("******** 축하합니다! 최종 보스를 토벌하였습니다! ********",RGB(0,255,255));
 			Sleep(2000);
-			cout << "게임이 종료됩니다." << endl;
 			GameManager::GetInstance()->EndGame();
 			exit(0);
 		}
@@ -103,8 +93,8 @@ bool Battle::MonsterTurn(Monster* monster)
 
 		int exp = monster->DropExp();
 		int gold = monster->DropGold();
-		cout << character->GetName() << "은 " << exp << " 경험치를 획득하였습니다!" << endl;
-		cout << character->GetName() << "은 " << gold << " 골드를 획득하였습니다!" << endl;
+		LogBox::GetInstance()->Print(format("{} 은 {} 경험치를 획득하였습니다!", character->GetName(), exp));
+		LogBox::GetInstance()->Print(format("{} 은 {} 골드를 획득하였습니다!", character->GetName(), gold));
 		Sleep(1500);
 		character->TakeExp(exp);
 		character->TakeGold(gold);
@@ -115,7 +105,7 @@ bool Battle::MonsterTurn(Monster* monster)
 	}
 	else
 	{
-		cout << monster->GetName() << " 의 공격!" << endl;
+		LogBox::GetInstance()->Print(format("{} 의 공격!", monster->GetName()));
 		Sleep(1500);
 		character->TakeDamage(monster->MonsterAttack());
 		Sleep(1500);

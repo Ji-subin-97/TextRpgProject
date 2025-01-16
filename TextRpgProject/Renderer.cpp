@@ -101,16 +101,15 @@ void Renderer::SetTextBackgroundColor(int id, RGB color, int width)
     int paddingLeft = (boxWidth - textLength) / 2;
     int paddingRight = boxWidth - paddingLeft - textLength;
     text = string(paddingLeft, ' ') + text + string(paddingRight, ' ');
-    /*Cursor::SetPosition(textBox->GetPos() + Pos(1, 1));
-    Cursor::SetBackgroundColor(color);
-    cout << string(width, ' ');
-    Cursor::ResetBackgroundColor();*/
+
+    int length = width > boxWidth ? boxWidth : width;
 
     Cursor::SetPosition(textBox->GetPos() + Pos(1, 1));
     Cursor::SetBackgroundColor(color);
-    for (int i = 0; i < width; i++) { cout << text[i]; }
+    for (int i = 0; i < length; i++) { cout << text[i]; }
+
     Cursor::ResetBackgroundColor();
-    for (int i = width; i < text.length(); i++) { cout << text[i]; }
+    for (int i = length; i < text.length(); i++) { cout << text[i]; }
 
 }
 void Renderer::EditObjectColor(int id, RGB color)

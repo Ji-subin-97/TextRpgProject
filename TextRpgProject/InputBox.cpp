@@ -39,6 +39,7 @@ string InputBox::Input()
     Pos pos = ++InputBox::GetPos();
     pos.X += 8;
     Cursor::SetPosition(pos);
+    Cursor::SetTextColor(RGB(255, 255, 255));
     Cursor::ShowCursor();
 
     string str = Util::inputText(20);

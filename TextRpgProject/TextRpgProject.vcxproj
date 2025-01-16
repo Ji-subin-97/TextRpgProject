@@ -200,6 +200,15 @@
     <ClInclude Include="Util.h" />
     <ClInclude Include="Validator.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="head.txt" />
+    <Text Include="monster_head.txt" />
+    <Text Include="potion.txt" />
+    <Text Include="power_button.txt" />
+    <Text Include="store.txt" />
+    <Text Include="sword.txt" />
+    <Text Include="title.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
